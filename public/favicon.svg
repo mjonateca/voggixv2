@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Voggix">
+  <defs>
+    <linearGradient id="voggix-favicon-gradient" x1="10" y1="9" x2="54" y2="55" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="0.48" stop-color="#8B5CF6"/>
+      <stop offset="0.76" stop-color="#EC4899"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#071124"/>
+  <path d="M10.8 17.1C10 15.7 11 14 12.6 14H22.8C23.7 14 24.5 14.5 24.8 15.3L33.2 34.5C33.8 35.8 35.7 35.9 36.4 34.6L47.2 15.2C47.6 14.5 48.3 14 49.2 14H58.8C60.5 14 61.5 15.8 60.6 17.3L43.6 47.1C40.2 53 31.6 52.7 28.6 46.6L10.8 17.1Z" fill="url(#voggix-favicon-gradient)"/>
+  <path d="M38.4 14.6H50.8C52.4 14.6 53.4 16.5 52.4 17.8L40.2 33.1C37.6 36.4 32.8 36.8 29.5 34.2L27.1 32.3L38.4 14.6Z" fill="url(#voggix-favicon-gradient)" opacity="0.78"/>
+  <rect x="48.8" y="7.2" width="10.2" height="10.2" rx="2.4" transform="rotate(45 48.8 7.2)" fill="url(#voggix-favicon-gradient)"/>
+</svg>

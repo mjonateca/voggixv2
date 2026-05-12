@@ -1,0 +1,33 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Voggix, conecta, organiza y haz crecer negocios de servicios">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071124"/>
+      <stop offset="0.58" stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="118" y1="128" x2="276" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="0.48" stop-color="#8B5CF6"/>
+      <stop offset="0.76" stop-color="#EC4899"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" stroke="white" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <path d="M112 139C108 131 113 122 122 122H165C170 122 175 125 177 130L222 230C225 236 234 236 237 230L298 129C300 125 305 122 310 122H352C361 122 366 132 361 140L263 303C247 330 207 328 194 300L112 139Z" fill="url(#brand)"/>
+  <path d="M249 125H307C316 125 321 135 315 142L252 220C240 235 218 238 203 226L190 216L249 125Z" fill="url(#brand)" opacity="0.78"/>
+  <rect x="307" y="89" width="38" height="38" rx="9" transform="rotate(45 307 89)" fill="url(#brand)"/>
+  <text x="392" y="244" fill="#F8FAFC" font-family="Poppins, Inter, Arial, sans-serif" font-size="96" font-weight="900" letter-spacing="2">VOGGIX</text>
+  <path d="M820 158L858 206" stroke="url(#brand)" stroke-width="10" stroke-linecap="round"/>
+  <text x="118" y="382" fill="#F8FAFC" font-family="Poppins, Inter, Arial, sans-serif" font-size="38" font-weight="800" letter-spacing="13">CONECTA. ORGANIZA. HAZ CRECER.</text>
+  <text x="120" y="464" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="500">Plataforma todo en uno para reservas, gestión y crecimiento</text>
+  <text x="120" y="508" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="500">de negocios de servicios.</text>
+  <rect x="804" y="354" width="260" height="96" rx="18" fill="white" fill-opacity="0.08" stroke="white" stroke-opacity="0.14"/>
+  <rect x="834" y="385" width="46" height="46" rx="10" fill="#2563EB"/>
+  <rect x="904" y="385" width="46" height="46" rx="10" fill="#8B5CF6"/>
+  <rect x="974" y="385" width="46" height="46" rx="10" fill="#EC4899"/>
+  <text x="804" y="486" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" letter-spacing="5">RESERVAS  CLIENTES  GESTION</text>
+</svg>
