@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import type { CSSProperties } from "react";
+import { useEffect, useState } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import {
   benefits,
   ecosystemRows,
@@ -18,17 +18,40 @@ import { ContactSection } from "@/components/ContactSection";
 import { DemoModal } from "@/components/DemoModal";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { Logo, VerticalIcon, VoggixMark, type VerticalKey } from "@/components/Logo";
+import { AppLogo, Logo, VerticalIcon, VoggixMark, type VerticalKey } from "@/components/Logo";
 
 export function LandingPage() {
   const [isDemoOpen, setIsDemoOpen] = useState(false);
 
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      document.querySelectorAll("[data-reveal]").forEach((node) => node.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    document.querySelectorAll("[data-reveal]").forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Header onDemoClick={() => setIsDemoOpen(true)} />
-      <main>
+      <main className="overflow-clip">
         <Hero onDemoClick={() => setIsDemoOpen(true)} />
-        <ProblemSection />
+        <ContinuousEvolution />
         <StudioSection />
         <SystemSection />
         <AppsSection />
@@ -46,88 +69,118 @@ export function LandingPage() {
 
 function Hero({ onDemoClick }: { onDemoClick: () => void }) {
   return (
-    <section id="inicio" className="relative min-h-[185vh] overflow-clip bg-[#020712] text-white">
+    <section id="inicio" className="flow-hero relative min-h-[calc(100svh-72px)] bg-[#020712] text-white">
       <div className="absolute inset-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(37,99,235,0.35),transparent_30%),radial-gradient(circle_at_82%_18%,rgba(236,72,153,0.28),transparent_32%),linear-gradient(180deg,#020712_0%,#071124_54%,#F8FAFC_100%)]" />
-        <div className="cinema-grid absolute inset-0 opacity-45" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(37,99,235,0.48),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(139,92,246,0.28),transparent_30%),linear-gradient(180deg,#020712_0%,#071124_64%,#0b1220_100%)]" />
+        <div className="cinema-grid absolute inset-0 opacity-50" />
       </div>
 
-      <div className="sticky top-[72px] z-10 flex min-h-[calc(100svh-72px)] items-center">
-        <div className="section-shell grid items-center gap-10 py-14 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="max-w-2xl">
-            <div className="hero-copy">
-              <h1 className="font-display text-[4.2rem] font-black leading-[0.92] tracking-normal text-white sm:text-[6rem] lg:text-[8.5rem]">
-                Voggix
-              </h1>
-              <p className="mt-6 max-w-xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
-                Webs premium y sistemas digitales para negocios que quieren crecer.
-              </p>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-                Creamos experiencias digitales que convierten visitas, mensajes y consultas en clientes,
-                reservas y oportunidades reales.
-              </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <a href="#studio" className="premium-button bg-white text-[#071124] hover:bg-slate-100">
-                  Explorar Voggix Studio
-                </a>
-                <a href="#apps" className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14">
-                  Ver verticales
-                </a>
-                <button type="button" onClick={onDemoClick} className="sr-only">
-                  Solicitar demo
-                </button>
-              </div>
-            </div>
+      <div className="section-shell relative grid min-h-[calc(100svh-72px)] items-center gap-12 py-16 lg:grid-cols-[0.88fr_1.12fr]">
+        <div className="hero-copy max-w-2xl">
+          <Logo variant="light" />
+          <h1 className="mt-10 font-display text-[4.4rem] font-black leading-[0.9] tracking-normal text-white sm:text-[6.5rem] lg:text-[9rem]">
+            Voggix
+          </h1>
+          <p className="mt-7 max-w-xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
+            Webs premium y sistemas digitales para negocios que quieren crecer.
+          </p>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+            Creamos experiencias digitales que convierten visitas, mensajes y consultas en clientes,
+            reservas y oportunidades reales.
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="#studio" className="premium-button bg-white text-[#071124] hover:bg-slate-100">
+              Explorar Voggix Studio
+            </a>
+            <a href="#apps" className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14">
+              Ver verticales
+            </a>
+            <button type="button" onClick={onDemoClick} className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14">
+              Solicitar demo
+            </button>
           </div>
+        </div>
 
-          <div className="hero-device relative min-h-[560px]">
-            <CentralMockup mode="hero" />
-            <LayerRail />
-          </div>
+          <div className="hero-device relative min-h-[610px]">
+          <HeroConstellation />
         </div>
       </div>
     </section>
   );
 }
 
-function ProblemSection() {
+function ContinuousEvolution() {
   return (
-    <section className="relative overflow-clip bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
-      <div className="section-shell grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div data-reveal>
-          <h2 className="section-title max-w-3xl">
-            Tu negocio no necesita solo estar online. Necesita convertir.
-          </h2>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-            Voggix organiza señales dispersas y las convierte en una experiencia clara: presencia,
-            propuesta, contacto, reserva y seguimiento.
-          </p>
-        </div>
+    <section className="evolution-river relative bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
+      <div className="section-shell relative">
+        <div className="flow-spine" aria-hidden="true" />
+        <div className="grid gap-20">
+          <StoryStep
+            eyebrow="01"
+            title="Tu negocio no necesita solo estar online. Necesita convertir."
+            text="Mensajes, precios, servicios y reservas se sienten sueltos cuando no hay una experiencia digital clara."
+            direction="left"
+          >
+            <ProblemCluster />
+          </StoryStep>
 
-        <div data-reveal className="grid gap-4 sm:grid-cols-2">
-          {problemPoints.map((point, index) => (
-            <div key={point} className="problem-card" style={{ transitionDelay: `${index * 40}ms` }}>
-              <span className="text-sm font-black text-voggix-blue">0{index + 1}</span>
-              <p className="mt-5 text-xl font-black leading-tight">{point}</p>
-            </div>
-          ))}
+          <StoryStep
+            eyebrow="02"
+            title="Primero aparece una web premium."
+            text="Voggix Studio ordena la primera impresión: propuesta, servicios, confianza, WhatsApp y reserva directa."
+            direction="right"
+          >
+            <StudioBuildMockup />
+          </StoryStep>
+
+          <StoryStep
+            eyebrow="03"
+            title="Después la web empieza a operar."
+            text="Servicios, profesionales, calendario, clientes y panel se montan sobre la presencia digital."
+            direction="left"
+          >
+            <SystemLayerMockup />
+          </StoryStep>
         </div>
-      </div>
-      <div className="section-shell mt-16" data-reveal>
-        <TransformationStrip />
       </div>
     </section>
+  );
+}
+
+function StoryStep({
+  eyebrow,
+  title,
+  text,
+  direction,
+  children
+}: {
+  eyebrow: string;
+  title: string;
+  text: string;
+  direction: "left" | "right";
+  children: ReactNode;
+}) {
+  return (
+    <article className={`story-step ${direction === "right" ? "lg:grid-cols-[1.05fr_0.95fr]" : "lg:grid-cols-[0.95fr_1.05fr]"}`}>
+      <div data-reveal={direction === "right" ? "right" : "left"} className={direction === "right" ? "lg:order-2" : ""}>
+        <p className="text-sm font-black uppercase tracking-[0.22em] text-voggix-blue">{eyebrow}</p>
+        <h2 className="mt-5 text-balance font-display text-5xl font-black leading-[0.98] text-[#071124] md:text-6xl">
+          {title}
+        </h2>
+        <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">{text}</p>
+      </div>
+      <div data-reveal={direction === "right" ? "left" : "right"}>{children}</div>
+    </article>
   );
 }
 
 function StudioSection() {
   return (
     <section id="studio" className="relative overflow-clip bg-white py-24 text-[#071124] lg:py-32">
-      <div className="section-shell grid gap-14 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
-        <div className="lg:sticky lg:top-28" data-reveal>
-          <h2 className="section-title">
-            Voggix Studio crea la primera impresión que tu negocio merece.
-          </h2>
+      <div className="section-shell grid gap-14 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+        <div data-reveal="left">
+          <AppLogo vertical="studio" label="Studio" color="#2563EB" />
+          <h2 className="section-title mt-8">Voggix Studio crea la primera impresión que tu negocio merece.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-600">
             Diseñamos y desarrollamos páginas web premium para negocios que necesitan verse mejor,
             explicar mejor su valor y convertir más visitas en contactos, reservas o ventas.
@@ -141,18 +194,16 @@ function StudioSection() {
           </div>
         </div>
 
-        <div className="space-y-7">
-          <div data-reveal className="studio-device">
-            <WebPreview />
-          </div>
-          <div data-reveal className="grid gap-3 sm:grid-cols-2">
-            {studioBlocks.map((block) => (
-              <div key={block} className="studio-block">
+        <div data-reveal="right" className="space-y-5">
+          <StudioPortfolioMockup />
+          <div className="grid gap-3 sm:grid-cols-2">
+            {studioBlocks.map((block, index) => (
+              <div key={block} className="studio-block" style={{ transitionDelay: `${index * 35}ms` }}>
                 {block}
               </div>
             ))}
           </div>
-          <div data-reveal className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-4">
             {studioTimeline.map((step, index) => (
               <article key={step.title} className="timeline-card">
                 <span>{String(index + 1).padStart(2, "0")}</span>
@@ -170,27 +221,27 @@ function StudioSection() {
 function SystemSection() {
   return (
     <section className="relative overflow-clip bg-[#071124] py-24 text-white lg:py-32">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_22%,rgba(139,92,246,0.26),transparent_30%),radial-gradient(circle_at_28%_70%,rgba(34,211,238,0.18),transparent_28%)]" />
-      <div className="section-shell relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div data-reveal>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(37,99,235,0.32),transparent_30%),radial-gradient(circle_at_22%_70%,rgba(34,211,238,0.18),transparent_28%)]" />
+      <div className="section-shell relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+        <div data-reveal="left">
           <h2 className="section-title text-white">
             Y cuando tu negocio necesita más que una web, Voggix activa el sistema.
           </h2>
           <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
             Algunos negocios solo necesitan una web premium. Otros necesitan agenda, reservas,
-            profesionales, servicios, clientes y panel de gestión. Para ellos existen las verticales de Voggix.
+            profesionales, servicios, clientes y panel de gestión.
           </p>
         </div>
-        <div data-reveal className="relative min-h-[560px]">
-          <CentralMockup mode="system" />
+        <div data-reveal="right" className="relative min-h-[580px]">
+          <SystemLayerMockup dark />
           <div className="absolute inset-0 pointer-events-none">
             {systemModules.map((module, index) => (
               <span
                 key={module}
                 className="module-chip"
                 style={{
-                  left: `${index % 2 === 0 ? 0 : 68}%`,
-                  top: `${12 + index * 11}%`
+                  left: `${index % 2 === 0 ? 1 : 67}%`,
+                  top: `${6 + index * 11}%`
                 }}
               >
                 {module}
@@ -208,17 +259,17 @@ function AppsSection() {
   const current = verticals[active];
 
   return (
-    <section id="apps" className="bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
+    <section id="apps" className="relative bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
       <div className="section-shell">
-        <div data-reveal className="max-w-4xl">
+        <div data-reveal="up" className="max-w-4xl">
           <h2 className="section-title">Un mismo motor. Verticales diseñadas para cada negocio.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-600">
             Voggix Apps adapta reservas, servicios, profesionales y gestión a la forma en que opera cada vertical.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[0.42fr_0.58fr]">
-          <div data-reveal className="space-y-3">
+        <div className="mt-12 grid gap-8 lg:grid-cols-[0.38fr_0.62fr]">
+          <div data-reveal="left" className="space-y-3">
             {verticals.map((vertical, index) => (
               <button
                 key={vertical.key}
@@ -227,24 +278,21 @@ function AppsSection() {
                 className={`vertical-tab ${active === index ? "is-active" : ""}`}
                 style={{ "--accent": vertical.color } as CSSProperties}
               >
-                <span className="grid h-12 w-12 place-items-center rounded-[8px]" style={{ backgroundColor: vertical.surface, color: vertical.color }}>
-                  <VerticalIcon vertical={vertical.key as VerticalKey} />
-                </span>
-                <span>
-                  <strong>{vertical.appName}</strong>
-                  <small>{vertical.description}</small>
-                </span>
+                <AppLogo
+                  vertical={vertical.key as VerticalKey}
+                  label={vertical.shortName}
+                  color={vertical.color}
+                  compact
+                />
               </button>
             ))}
           </div>
 
-          <div data-reveal className="app-stage" style={{ "--accent": current.color } as CSSProperties}>
-            <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+          <div data-reveal="right" className="app-stage" style={{ "--accent": current.color } as CSSProperties}>
+            <div className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
               <div>
-                <p className="text-sm font-black uppercase tracking-[0.18em]" style={{ color: current.color }}>
-                  {current.name}
-                </p>
-                <h3 className="mt-4 text-4xl font-black">{current.appName}</h3>
+                <AppLogo vertical={current.key as VerticalKey} label={current.shortName} color={current.color} />
+                <h3 className="mt-7 text-4xl font-black">{current.appName}</h3>
                 <p className="mt-4 leading-8 text-slate-600">{current.description}</p>
                 <ul className="mt-7 space-y-3">
                   {current.points.map((point) => (
@@ -268,7 +316,7 @@ function EcosystemSection() {
   return (
     <section id="ecosistema" className="bg-white py-24 text-[#071124] lg:py-32">
       <div className="section-shell">
-        <div data-reveal className="max-w-4xl">
+        <div data-reveal="up" className="max-w-4xl">
           <h2 className="section-title">Empieza con una web. Escala con un sistema.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-600">
             Voggix no es solo diseño. No es solo software. Es una forma de convertir negocios reales en
@@ -276,8 +324,8 @@ function EcosystemSection() {
           </p>
         </div>
         <div className="mt-12 grid gap-5 lg:grid-cols-2">
-          {ecosystemRows.map((row) => (
-            <article key={row.title} data-reveal className="ecosystem-panel">
+          {ecosystemRows.map((row, index) => (
+            <article key={row.title} data-reveal={index === 0 ? "left" : "right"} className="ecosystem-panel">
               <h3>{row.title}</h3>
               <p>{row.text}</p>
               <div>
@@ -297,26 +345,21 @@ function ScreensSection() {
   return (
     <section id="screens" className="overflow-clip bg-[#071124] py-24 text-white lg:py-32">
       <div className="section-shell">
-        <div data-reveal className="max-w-4xl">
+        <div data-reveal="up" className="max-w-4xl">
           <h2 className="section-title text-white">Producto real, diseño real, negocio real.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-300">
-            Galería premium con mockups de producto y escenas reales disponibles en el ecosistema Voggix. Las
-            verticales sin capturas finales se muestran como mockups conceptuales coherentes.
+            Mockups de producto y escenas de trabajo para Voggix Studio y las verticales. Las capturas no finales
+            se presentan como diseño conceptual de producto.
           </p>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
           {screenshotGroups.map((group, index) => (
-            <article key={group.title} data-reveal className={`screenshot-card ${index === 0 ? "lg:col-span-2" : ""}`}>
+            <article key={group.title} data-reveal={index % 2 === 0 ? "left" : "right"} className={`screenshot-card ${index === 0 ? "lg:col-span-2" : ""}`}>
               <div className={`screenshot-visual bg-gradient-to-br ${group.tone}`}>
-                <div className="mock-browser">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <div className="mock-lines">
-                  <i />
-                  <i />
-                  <i />
+                <div className="mock-browser"><span /><span /><span /></div>
+                <div className="mock-product-window">
+                  <Logo variant="light" compact />
+                  <div className="mock-lines"><i /><i /><i /></div>
                 </div>
               </div>
               <h3>{group.title}</h3>
@@ -333,12 +376,12 @@ function BenefitsSection() {
   return (
     <section className="bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
       <div className="section-shell">
-        <div data-reveal className="max-w-4xl">
+        <div data-reveal="up" className="max-w-4xl">
           <h2 className="section-title">Más percepción. Más claridad. Más conversión.</h2>
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {benefits.map((benefit, index) => (
-            <article key={benefit} data-reveal className="benefit-card">
+            <article key={benefit} data-reveal="up" className="benefit-card" style={{ transitionDelay: `${index * 35}ms` }}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <h3>{benefit}</h3>
             </article>
@@ -353,7 +396,7 @@ function FinalCTA({ onDemoClick }: { onDemoClick: () => void }) {
   return (
     <section className="relative overflow-clip bg-white py-24 text-[#071124] lg:py-32">
       <div className="section-shell">
-        <div data-reveal className="final-cta">
+        <div data-reveal="up" className="final-cta">
           <div className="relative z-10 max-w-4xl">
             <Logo variant="light" />
             <h2 className="mt-10 text-balance font-display text-5xl font-black leading-[0.98] text-white md:text-7xl">
@@ -381,143 +424,153 @@ function FinalCTA({ onDemoClick }: { onDemoClick: () => void }) {
   );
 }
 
-function CentralMockup({ mode }: { mode: "hero" | "system" }) {
+function HeroConstellation() {
   return (
-    <div className="relative mx-auto max-w-[720px]">
-      <div className="absolute -inset-10 rounded-[40px] bg-gradient-to-br from-blue-500/26 via-violet-500/20 to-pink-500/22 blur-3xl" />
-      <div className="relative rounded-[28px] border border-white/12 bg-white/10 p-3 shadow-[0_35px_120px_rgba(0,0,0,0.34)] backdrop-blur-xl">
-        <div className="rounded-[22px] bg-white p-4 text-[#071124]">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-red-300" />
-              <span className="h-3 w-3 rounded-full bg-amber-300" />
-              <span className="h-3 w-3 rounded-full bg-emerald-300" />
-            </div>
-            <span className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
-              {mode === "hero" ? "Premium web" : "Voggix OS"}
-            </span>
+    <div className="constellation">
+      <div className="main-device">
+        <div className="device-toolbar"><span /><span /><span /><strong>voggix.com</strong></div>
+        <div className="device-grid">
+          <div className="device-hero">
+            <VoggixMark className="h-16 w-20" />
+            <h3>Web premium lista para convertir.</h3>
+            <p>Servicios, prueba visual, CTA y contacto directo.</p>
           </div>
-          <div className="grid gap-5 pt-5 md:grid-cols-[0.9fr_1.1fr]">
-            <div className="rounded-[18px] bg-[#071124] p-5 text-white">
-              <VoggixMark className="h-12 w-14" />
-              <h3 className="mt-7 text-3xl font-black leading-tight">
-                {mode === "hero" ? "Una web que explica, convence y convierte." : "Agenda, equipo y clientes en un solo sistema."}
-              </h3>
-              <p className="mt-4 leading-7 text-slate-300">
-                {mode === "hero"
-                  ? "Hero claro, servicios, galería, CTA, WhatsApp y reservas listas para crecer."
-                  : "Servicios, horarios, profesionales, reservas y panel para operar cada día."}
-              </p>
-            </div>
-            <div className="space-y-3">
-              {heroLayers.slice(mode === "hero" ? 0 : 2).map((layer, index) => (
-                <div key={layer} className="flex items-center justify-between rounded-[14px] border border-slate-100 bg-slate-50 px-4 py-3">
-                  <span className="font-black">{layer}</span>
-                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-voggix-blue shadow-sm">
-                    {index === 0 ? "Base" : "Live"}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LayerRail() {
-  return (
-    <div className="absolute -bottom-10 left-1/2 grid w-[min(92vw,680px)] -translate-x-1/2 grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
-      {heroLayers.map((layer) => (
-        <span key={layer} className="rounded-full border border-white/12 bg-white/10 px-3 py-2 text-center text-xs font-black text-white backdrop-blur">
-          {layer}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function TransformationStrip() {
-  return (
-    <div className="grid gap-4 rounded-[28px] border border-slate-200 bg-white p-4 shadow-soft lg:grid-cols-3">
-      {["Mensajes sueltos", "Pantallas antiguas", "Experiencia Voggix"].map((item, index) => (
-        <div key={item} className={`rounded-[22px] p-5 ${index === 2 ? "bg-[#071124] text-white" : "bg-slate-50 text-[#071124]"}`}>
-          <p className="text-sm font-black uppercase tracking-[0.16em] text-slate-400">{item}</p>
-          <div className="mt-7 space-y-3">
-            <span className="block h-4 w-2/3 rounded-full bg-current opacity-15" />
-            <span className="block h-4 w-full rounded-full bg-current opacity-10" />
-            <span className="block h-12 rounded-[12px] bg-current opacity-10" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function WebPreview() {
-  return (
-    <div className="rounded-[24px] bg-[#071124] p-4 text-white">
-      <div className="rounded-[18px] bg-white p-4 text-[#071124]">
-        <div className="grid gap-4 md:grid-cols-[1.05fr_0.95fr]">
-          <div className="rounded-[16px] bg-[#F8FAFC] p-6">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-voggix-blue">Hotel Manila</p>
-            <h3 className="mt-5 text-4xl font-black leading-tight">Una web premium lista para reservas directas.</h3>
-            <div className="mt-8 flex gap-3">
-              <span className="rounded-lg bg-[#071124] px-4 py-3 text-sm font-black text-white">Reservar</span>
-              <span className="rounded-lg border border-slate-200 px-4 py-3 text-sm font-black">WhatsApp</span>
-            </div>
-          </div>
-          <div className="grid gap-3">
-            <div className="h-36 rounded-[16px] bg-gradient-to-br from-blue-500 to-violet-500" />
-            <div className="grid grid-cols-2 gap-3">
-              <div className="h-24 rounded-[16px] bg-slate-100" />
-              <div className="h-24 rounded-[16px] bg-slate-100" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function VerticalScene({
-  vertical
-}: {
-  vertical: (typeof verticals)[number];
-}) {
-  return (
-    <div className="relative min-h-[420px]">
-      <div className="absolute right-2 top-0 h-[360px] w-[190px] rounded-[30px] border border-slate-200 bg-[#071124] p-2 shadow-[0_30px_80px_rgba(15,23,42,0.18)]">
-        <div className="h-full rounded-[24px] bg-white p-4">
-          <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: vertical.color }}>
-            Reserva
-          </p>
-          <h4 className="mt-4 text-xl font-black leading-tight">{vertical.appName}</h4>
-          <div className="mt-5 space-y-2">
-            {vertical.points.slice(0, 4).map((point) => (
-              <span key={point} className="block rounded-[10px] border border-slate-100 bg-slate-50 px-3 py-2 text-xs font-bold">
-                {point}
-              </span>
+          <div className="device-stack">
+            {heroLayers.slice(0, 5).map((layer, index) => (
+              <span key={layer} style={{ transitionDelay: `${index * 70}ms` }}>{layer}</span>
             ))}
           </div>
         </div>
       </div>
-      <div className="absolute left-0 top-12 w-[78%] rounded-[24px] border border-slate-200 bg-white p-4 shadow-soft">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">Panel</span>
-          <span className="rounded-full px-3 py-1 text-xs font-black" style={{ backgroundColor: vertical.surface, color: vertical.color }}>
-            {vertical.appName}
-          </span>
+      <div className="floating-card card-left">
+        <AppLogo vertical="studio" label="Studio" color="#2563EB" compact dark />
+      </div>
+      <div className="floating-card card-right">
+        <p>Reserva directa</p>
+        <strong>Hoy, 5:30 PM</strong>
+      </div>
+      <div className="phone-mock">
+        <div>
+          <VoggixMark className="h-12 w-14" />
+          <p>Tu negocio conectado con más clientes.</p>
+          <span>Reservar ahora</span>
         </div>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          {vertical.screens.slice(0, 6).map((screen) => (
-            <div key={screen} className="rounded-[14px] bg-slate-50 p-3">
-              <span className="block h-2.5 w-10 rounded-full" style={{ backgroundColor: vertical.color }} />
-              <p className="mt-4 text-sm font-black">{screen}</p>
+      </div>
+    </div>
+  );
+}
+
+function ProblemCluster() {
+  return (
+    <div className="problem-cluster">
+      {problemPoints.map((point, index) => (
+        <div key={point} className={index === problemPoints.length - 1 ? "is-clean" : ""}>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <p>{point}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function StudioBuildMockup() {
+  return (
+    <div className="build-mockup">
+      <div className="wireframe-layer">
+        <span />
+        <span />
+        <span />
+      </div>
+      <div className="visual-layer">
+        <div>
+          <p>Hotel Manila</p>
+          <h3>Reserva una experiencia boutique.</h3>
+          <span>Reservar directo</span>
+        </div>
+      </div>
+      <div className="mobile-layer">
+        <VoggixMark className="h-9 w-11" />
+        <p>WhatsApp + reserva</p>
+      </div>
+    </div>
+  );
+}
+
+function SystemLayerMockup({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className={`system-mockup ${dark ? "is-dark" : ""}`}>
+      <div className="system-browser">
+        <div className="device-toolbar"><span /><span /><span /><strong>Voggix OS</strong></div>
+        <div className="system-layout">
+          <aside>
+            <Logo compact />
+            {["Servicios", "Equipo", "Reservas", "Clientes"].map((item) => <span key={item}>{item}</span>)}
+          </aside>
+          <main>
+            <div className="calendar-row">
+              {["10:00", "11:30", "14:00", "17:30"].map((time) => <span key={time}>{time}</span>)}
             </div>
-          ))}
+            <div className="booking-list">
+              {["Corte premium", "Limpieza dental", "Manicura", "Consulta tattoo"].map((item) => <p key={item}>{item}</p>)}
+            </div>
+          </main>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function StudioPortfolioMockup() {
+  return (
+    <div className="portfolio-mockup">
+      <div className="portfolio-browser">
+        <div className="device-toolbar"><span /><span /><span /><strong>Voggix Studio</strong></div>
+        <div className="portfolio-content">
+          <div>
+            <p>i-barber.com</p>
+            <h3>Una página pública con servicios, barberos y reservas.</h3>
+            <span>Reservar cita</span>
+          </div>
+          <div className="portfolio-gallery">
+            <i />
+            <i />
+            <i />
+          </div>
+        </div>
+      </div>
+      <div className="portfolio-phone">
+        <AppLogo vertical="barber" label="Barber" color="#10B981" compact />
+        <p>Corte + barba</p>
+        <span>Elegir horario</span>
+      </div>
+    </div>
+  );
+}
+
+function VerticalScene({ vertical }: { vertical: (typeof verticals)[number] }) {
+  return (
+    <div className="vertical-scene">
+      <div className="vertical-browser">
+        <div className="device-toolbar"><span /><span /><span /><strong>{vertical.appName}</strong></div>
+        <div className="vertical-dashboard">
+          <div className="vertical-rail">
+            <AppLogo vertical={vertical.key as VerticalKey} label={vertical.shortName} color={vertical.color} compact />
+            {vertical.points.slice(0, 4).map((point) => <span key={point}>{point}</span>)}
+          </div>
+          <div className="vertical-panel">
+            {vertical.screens.slice(0, 6).map((screen) => (
+              <div key={screen}>
+                <i style={{ backgroundColor: vertical.color }} />
+                <p>{screen}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="vertical-phone" style={{ "--accent": vertical.color } as CSSProperties}>
+        <p>{vertical.appName}</p>
+        <strong>Confirma tu cita</strong>
+        {vertical.points.slice(0, 3).map((point) => <span key={point}>{point}</span>)}
       </div>
     </div>
   );

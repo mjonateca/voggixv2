@@ -24,17 +24,17 @@ type VerticalLogoProps = {
 
 export function Logo({ variant = "dark", compact = false }: LogoProps) {
   const textColor = variant === "light" ? "text-white" : "text-[#070B14]";
-  const slashColor = variant === "light" ? "from-white via-white to-cyan-200" : "from-voggix-blue via-voggix-violet to-voggix-blue";
+  const slashColor = variant === "light" ? "from-white via-cyan-100 to-blue-200" : "from-[#2563EB] via-[#2563EB] to-[#22D3EE]";
 
   return (
     <span className="inline-flex items-center gap-3" aria-label="Voggix">
-      <VoggixMark className={compact ? "h-9 w-10" : "h-10 w-12"} />
-      <span className={`font-display text-[1.45rem] font-black leading-none tracking-[0.04em] ${textColor}`}>
+      <VoggixMark className={compact ? "h-9 w-11" : "h-11 w-14"} />
+      <span className={`font-display text-[1.45rem] font-black leading-none tracking-[0.055em] ${textColor}`}>
         VOGGI
         <span className="relative inline-block pr-0.5">
           X
           <span
-            className={`absolute right-[-0.05rem] top-[0.13rem] h-1.5 w-4 -rotate-45 rounded-full bg-gradient-to-r ${slashColor}`}
+            className={`absolute right-[-0.08rem] top-[0.08rem] h-1.5 w-4 -rotate-45 rounded-full bg-gradient-to-r ${slashColor}`}
             aria-hidden="true"
           />
         </span>
@@ -50,9 +50,9 @@ export function VerticalLogo({ name, vertical, color, dark = false, compact = fa
 
   return (
     <span className="inline-flex items-center gap-3" aria-label={name}>
-      <VoggixMark mode="mono" color={color} className={compact ? "h-9 w-10" : "h-11 w-12"} />
+      <VoggixMark mode="mono" color={color} className={compact ? "h-9 w-11" : "h-11 w-14"} />
       <span className="leading-none">
-        <span className={`font-display block text-[1.05rem] font-black tracking-[0.08em] ${textColor}`}>
+        <span className={`font-display block text-[1.05rem] font-black tracking-[0.1em] ${textColor}`}>
           VOGGIX
         </span>
         <span
@@ -60,6 +60,47 @@ export function VerticalLogo({ name, vertical, color, dark = false, compact = fa
         >
           <VerticalIcon vertical={vertical} className="h-4 w-4" />
           <span style={{ color }}>{label}</span>
+        </span>
+      </span>
+    </span>
+  );
+}
+
+export function AppLogo({
+  vertical,
+  label,
+  color,
+  dark = false,
+  compact = false
+}: {
+  vertical: VerticalKey;
+  label: string;
+  color: string;
+  dark?: boolean;
+  compact?: boolean;
+}) {
+  return (
+    <span className="inline-flex items-center gap-3" aria-label={`Voggix ${label}`}>
+      <span
+        className={`${compact ? "h-11 w-11" : "h-14 w-14"} grid place-items-center rounded-[14px] border shadow-sm`}
+        style={{
+          color,
+          background: dark ? "rgba(255,255,255,0.08)" : "#ffffff",
+          borderColor: dark ? "rgba(255,255,255,0.14)" : "rgba(226,232,240,0.9)"
+        }}
+      >
+        <VoggixMark mode="mono" color={color} className={compact ? "h-7 w-9" : "h-9 w-11"} />
+      </span>
+      <span className="leading-none">
+        <span className={`block font-display text-[1.05rem] font-black tracking-[0.1em] ${dark ? "text-white" : "text-[#070B14]"}`}>
+          VOGGIX
+        </span>
+        <span
+          className="mt-1 flex items-center gap-2 text-[0.66rem] font-black uppercase tracking-[0.3em]"
+          style={{ color }}
+        >
+          <VerticalIcon vertical={vertical} className="h-4 w-4" />
+          {label}
         </span>
       </span>
     </span>
@@ -77,36 +118,41 @@ export function VoggixMark({
 
   const mark = (
     <svg
-      viewBox="0 0 72 58"
+      viewBox="0 0 92 72"
       role="img"
       aria-label="Isotipo Voggix"
       className={className}
       fill="none"
     >
       <defs>
-        <linearGradient id={gradientId} x1="7" y1="6" x2="62" y2="55" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradientId} x1="8" y1="8" x2="78" y2="63" gradientUnits="userSpaceOnUse">
           <stop stopColor="#2563EB" />
-          <stop offset="0.48" stopColor="#8B5CF6" />
-          <stop offset="0.76" stopColor="#EC4899" />
+          <stop offset="0.42" stopColor="#2563EB" />
+          <stop offset="0.7" stopColor="#8B5CF6" />
+          <stop offset="0.9" stopColor="#EC4899" />
           <stop offset="1" stopColor="#22D3EE" />
+        </linearGradient>
+        <linearGradient id={`${gradientId}-shade`} x1="46" y1="5" x2="28" y2="48" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#5B6CFF" stopOpacity="0.95" />
+          <stop offset="1" stopColor="#EC4899" stopOpacity="0.12" />
         </linearGradient>
       </defs>
       <path
-        d="M5.9 9.4C5.2 8 6.2 6.3 7.8 6.3H19.2C20.1 6.3 20.9 6.9 21.3 7.7L33.4 34.4C34 35.8 35.9 35.9 36.7 34.6L51.9 7.5C52.3 6.8 53 6.3 53.9 6.3H65.1C66.8 6.3 67.8 8.2 66.9 9.7L43.5 49.2C39.8 55.5 30.6 55.1 27.4 48.5L5.9 9.4Z"
+        d="M7.8 13.2C6.7 11.1 8.2 8.6 10.6 8.6H25.2C26.6 8.6 27.9 9.4 28.5 10.7L43 42.7C44.1 45.2 47.7 45.4 49.1 43L68.3 10.4C69 9.3 70.2 8.6 71.5 8.6H86.3C88.9 8.6 90.4 11.5 88.9 13.6L58.5 57.1C52.9 65.2 40.8 64.3 36.4 55.5L7.8 13.2Z"
         fill={fill}
       />
       <path
-        d="M39.5 7.2H53.8C55.5 7.2 56.5 9.2 55.4 10.5L40.2 29.5C37.4 33 32.3 33.5 28.8 30.7L25.7 28.2L39.5 7.2Z"
-        fill={fill}
-        opacity={mode === "gradient" ? "0.78" : "0.86"}
+        d="M50.8 8.6H71.2C73.5 8.6 75 11.2 73.6 13.1L52.1 43.5C48.2 49 40.2 49.3 35.8 44.2L28.7 36L50.8 8.6Z"
+        fill={mode === "gradient" ? `url(#${gradientId}-shade)` : color}
+        opacity={mode === "gradient" ? "0.88" : "0.78"}
       />
       <rect
-        x="50.6"
+        x="68.2"
         y="0.8"
-        width="12.8"
-        height="12.8"
-        rx="3"
-        transform="rotate(45 50.6 0.8)"
+        width="14"
+        height="14"
+        rx="3.2"
+        transform="rotate(45 68.2 0.8)"
         fill={fill}
       />
     </svg>
