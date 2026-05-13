@@ -2,319 +2,384 @@ export const brand = {
   name: "Voggix",
   tagline: "Conecta. Organiza. Haz crecer.",
   description:
-    "Plataforma todo en uno para reservas, gestión y crecimiento de negocios de servicios.",
+    "Webs premium y sistemas digitales para negocios que quieren crecer.",
   colors: {
     blue: "#2563EB",
     violet: "#8B5CF6",
     pink: "#EC4899",
     cyan: "#22D3EE",
     navy: "#0F172A",
+    black: "#071124",
     cloud: "#F8FAFC"
   },
   email: "hola@voggix.com",
   whatsappDisplay: "+1 829 764 7616",
   whatsappNumber: "18297647616",
   whatsappHref:
-    "https://wa.me/18297647616?text=Hola%20Voggix%2C%20quiero%20digitalizar%20mi%20negocio.",
-  // TODO: Reemplazar por la URL real de la aplicación cuando esté disponible.
+    "https://wa.me/18297647616?text=Hola%20Voggix%2C%20quiero%20crear%20mi%20experiencia%20digital.",
   loginUrl: "/login"
 };
 
 export const navItems = [
-  { label: "Para negocios", href: "#para-negocios" },
-  { label: "Verticales", href: "#verticales" },
   { label: "Studio", href: "#studio" },
-  { label: "Precios", href: "#precios" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Apps", href: "#apps" },
+  { label: "Ecosistema", href: "#ecosistema" },
+  { label: "Producto", href: "#screens" },
   { label: "Contacto", href: "#contacto" }
 ];
 
-export const heroMicroBenefits = [
-  "Reservas online",
+export const heroLayers = [
+  "Web premium",
+  "Servicios",
+  "WhatsApp",
+  "Reservas",
+  "Calendario",
   "Clientes",
-  "Gestión",
-  "Promoción",
-  "Presencia digital"
+  "Panel"
 ];
 
-export const painPoints = [
+export const heroMicroBenefits = [
+  "Webs premium",
+  "Reservas",
+  "Clientes",
+  "Gestión",
+  "Conversión"
+];
+
+export const problemPoints = [
+  "Webs desactualizadas o poco profesionales",
+  "Mensajes dispersos por WhatsApp e Instagram",
+  "Servicios y precios poco claros",
+  "Falta de reservas o formularios simples",
+  "Mala experiencia mobile",
+  "Poca confianza desde el primer clic"
+];
+
+export const studioBlocks = [
+  "Webs corporativas",
+  "Landing pages",
+  "Webs para hoteles y negocios locales",
+  "Diseño responsive",
+  "SEO básico",
+  "WhatsApp, formularios o reservas",
+  "Publicación en dominio",
+  "Mantenimiento opcional"
+];
+
+export const studioTimeline = [
   {
-    title: "Citas perdidas",
-    text: "Clientes escriben y nadie responde a tiempo."
+    title: "Wireframe",
+    text: "Estructura clara para explicar el valor del negocio antes de decorar."
   },
   {
-    title: "Agenda desordenada",
-    text: "Reservas duplicadas, cambios manuales y poca visibilidad."
+    title: "Diseño visual",
+    text: "Dirección premium, jerarquía fuerte y componentes pensados para conversión."
   },
   {
-    title: "No-shows",
-    text: "Ausencias por falta de recordatorios claros."
+    title: "Mobile",
+    text: "Experiencia rápida, legible y cómoda para quien llega desde redes o Google."
   },
   {
-    title: "Presencia débil",
-    text: "Depender solo de Instagram limita la confianza y el alcance."
+    title: "Publicación",
+    text: "Dominio, SEO técnico básico, WhatsApp, formularios o reservas conectadas."
   }
+];
+
+export const projectExamples = [
+  "Hotel Manila",
+  "Hoteles boutique",
+  "Restaurantes",
+  "Clínicas",
+  "Servicios profesionales",
+  "Negocios locales"
+];
+
+export const systemModules = [
+  "Servicios",
+  "Precios",
+  "Profesionales",
+  "Calendario",
+  "Reservas",
+  "Clientes",
+  "Panel de administración"
 ];
 
 export const verticals = [
   {
     key: "barber",
+    appName: "iBarber",
     name: "Voggix Barber",
     shortName: "Barber",
     color: "#10B981",
     surface: "#ECFDF5",
     dark: "#064E3B",
-    iconLabel: "Tijeras de barbería",
-    heroTitle: "Agenda por barbero, servicios recurrentes y días llenos.",
+    description: "Para barberías, peluquerías masculinas y grooming.",
+    heroTitle: "Página pública, barberos, servicios y agenda conectada.",
     heroText:
-      "Reservas por profesional, duración por servicio, clientes frecuentes y promociones para horarios con baja ocupación.",
-    heroMetric: "24 cortes hoy",
-    text: "Gestiona barberías, barberos, servicios y clientes recurrentes.",
-    cta: "Ver más"
-  },
-  {
-    key: "dental",
-    name: "Voggix Dental",
-    shortName: "Dental",
-    color: "#2563EB",
-    surface: "#EFF6FF",
-    dark: "#1E3A8A",
-    iconLabel: "Diente dental",
-    heroTitle: "Citas confirmadas, doctores organizados y menos ausencias.",
-    heroText:
-      "Agenda por doctor, recordatorios, confirmaciones y seguimiento para clínicas que necesitan orden real.",
-    heroMetric: "18 citas confirmadas",
-    text: "Organiza citas, recordatorios y seguimiento para clínicas dentales.",
-    cta: "Ver más"
-  },
-  {
-    key: "tattoo",
-    name: "Voggix Tattoo",
-    shortName: "Tattoo",
-    color: "#111827",
-    surface: "#F3F4F6",
-    dark: "#030712",
-    iconLabel: "Máquina de tatuaje",
-    heroTitle: "Convierte consultas en sesiones reservadas.",
-    heroText:
-      "Portafolio, brief previo, depósito opcional, agenda por artista y seguimiento de sesiones.",
-    heroMetric: "7 briefs listos",
-    text: "Convierte consultas en sesiones reservadas y muestra tu portafolio.",
-    cta: "Ver más"
+      "iBarber ordena la experiencia desde el primer clic hasta la reserva confirmada.",
+    heroMetric: "Reservas por barbero",
+    text: "Barberías, peluquerías masculinas y grooming.",
+    cta: "Ver iBarber",
+    points: [
+      "Página pública",
+      "Servicios y precios",
+      "Selección de barbero",
+      "Fecha y hora",
+      "Panel de reservas"
+    ],
+    screens: [
+      "Dashboard barbería",
+      "Reservas",
+      "Servicios duración precio",
+      "Barberos y asignación",
+      "Página pública",
+      "Selección fecha hora"
+    ]
   },
   {
     key: "beauty",
+    appName: "iBeauty",
     name: "Voggix Beauty",
     shortName: "Beauty",
     color: "#D4A13C",
     surface: "#FFFBEB",
     dark: "#92400E",
-    iconLabel: "Perfil beauty",
-    heroTitle: "Servicios por duración, paquetes y clientas recurrentes.",
+    description:
+      "Para salones de belleza, estética, uñas, cejas, pestañas, spa y peluquerías beauty.",
+    heroTitle: "Servicios beauty, agenda y clientes con una experiencia elegante.",
     heroText:
-      "Salones, spas, uñas, estilistas y beauty pros con reservas claras y seguimiento comercial.",
-    heroMetric: "32 reservas beauty",
-    text: "Impulsa salones, spas, uñas, estilistas y beauty pros.",
-    cta: "Ver más"
+      "iBeauty conecta redes, servicios, precios, reservas y seguimiento de clientas.",
+    heroMetric: "Agenda beauty",
+    text: "Salones de belleza, estética, uñas, cejas, pestañas y spa.",
+    cta: "Ver iBeauty",
+    points: [
+      "Catálogo beauty",
+      "Duraciones y precios",
+      "Reservas desde redes",
+      "Agenda de clientes",
+      "Estética suave"
+    ],
+    screens: [
+      "Catálogo beauty",
+      "Agenda",
+      "Servicios",
+      "Clientes",
+      "Reserva social",
+      "Panel del salón"
+    ]
   },
   {
-    key: "studio",
-    name: "Voggix Studio",
-    shortName: "Studio",
+    key: "dental",
+    appName: "iDental",
+    name: "Voggix Dental",
+    shortName: "Dental",
     color: "#2563EB",
-    surface: "#EEF2FF",
-    dark: "#172554",
-    iconLabel: "Código web",
-    heroTitle: "Tu web, identidad y reservas conectadas.",
+    surface: "#EFF6FF",
+    dark: "#1E3A8A",
+    description: "Para clínicas dentales y tratamientos odontológicos.",
+    heroTitle: "Tratamientos, doctores y citas organizadas para clínicas.",
     heroText:
-      "Landing, web premium, marca, WhatsApp, Google Business Profile y reservas conectadas desde el primer día.",
-    heroMetric: "Web lista para reservar",
-    text: "Crea tu web, identidad visual y presencia digital conectada a reservas.",
-    cta: "Conocer Studio"
+      "iDental ayuda a estructurar la agenda, la experiencia del paciente y la operación clínica.",
+    heroMetric: "Agenda clínica",
+    text: "Clínicas dentales y tratamientos odontológicos.",
+    cta: "Ver iDental",
+    points: [
+      "Tratamientos",
+      "Profesionales",
+      "Agenda",
+      "Flujo del paciente",
+      "Panel de clínica"
+    ],
+    screens: [
+      "Dashboard clínica",
+      "Agenda",
+      "Horarios",
+      "Tratamientos",
+      "Paciente",
+      "Confirmación"
+    ]
+  },
+  {
+    key: "tattoo",
+    appName: "iTattoo",
+    name: "Voggix Tattoo",
+    shortName: "Tattoo",
+    color: "#111827",
+    surface: "#F3F4F6",
+    dark: "#030712",
+    description: "Para estudios de tatuaje, piercing y body art.",
+    heroTitle: "Artistas, consultas, sesiones y agenda con estética editorial.",
+    heroText:
+      "iTattoo convierte consultas visuales en sesiones reservadas y ordenadas por artista.",
+    heroMetric: "Sesiones por artista",
+    text: "Estudios de tatuaje, piercing y body art.",
+    cta: "Ver iTattoo",
+    points: [
+      "Artistas",
+      "Consultas",
+      "Sesiones",
+      "Agenda por artista",
+      "Estética editorial"
+    ],
+    screens: [
+      "Artistas",
+      "Brief",
+      "Portafolio",
+      "Sesiones",
+      "Agenda",
+      "Consulta"
+    ]
   }
 ] as const;
 
+export const painPoints = problemPoints.map((point) => ({
+  title: point,
+  text: "Voggix lo convierte en una experiencia clara, moderna y orientada a conversión."
+}));
+
 export const features = [
-  {
-    title: "Reservas online",
-    text: "Tus clientes reservan 24/7 desde cualquier dispositivo."
-  },
-  {
-    title: "Agenda inteligente",
-    text: "Controla servicios, horarios, disponibilidad y equipo."
-  },
-  {
-    title: "Gestión de clientes",
-    text: "Historial, preferencias, notas y seguimiento en un solo perfil."
-  },
-  {
-    title: "Recordatorios automáticos",
-    text: "Reduce ausencias con recordatorios y confirmaciones."
-  },
-  {
-    title: "Reportes y métricas",
-    text: "Entiende qué vende más, cuándo y con qué clientes."
-  },
-  {
-    title: "Promoción digital",
-    text: "Ofertas, campañas y herramientas para atraer clientes."
-  },
-  {
-    title: "Perfil profesional",
-    text: "Servicios, fotos, horarios, ubicación y botón de reservar."
-  },
-  {
-    title: "Presencia web con Studio",
-    text: "Web profesional conectada a reservas, WhatsApp, Google y redes."
-  }
-];
+  "Imagen premium desde el primer clic",
+  "Web rápida y responsive",
+  "Servicios claros",
+  "Menos preguntas repetidas",
+  "Flujo hacia WhatsApp, formulario o reserva",
+  "Panel de gestión",
+  "Activación rápida",
+  "Escalable por vertical"
+].map((benefit) => ({
+  title: benefit,
+  text: "Parte del sistema Voggix para mejorar presencia, claridad y conversión."
+}));
 
 export const steps = [
   {
-    title: "Crea tu perfil",
-    text: "Agrega tu negocio, servicios, horarios, precios, equipo y fotos."
+    title: "Lanza tu presencia",
+    text: "Voggix Studio crea la base premium para explicar y convertir mejor."
   },
   {
-    title: "Recibe reservas",
-    text: "Tus clientes eligen servicio, fecha y hora desde tu perfil o página web."
+    title: "Activa reservas",
+    text: "Las verticales conectan servicios, profesionales, horarios y clientes."
   },
   {
-    title: "Haz crecer tu negocio",
-    text: "Gestiona clientes, reduce ausencias, promociona servicios y mide resultados."
+    title: "Gestiona y escala",
+    text: "El negocio pasa de presencia online a sistema operativo digital."
   }
 ];
 
-export const studioServices = [
-  {
-    title: "Páginas web",
-    text: "Sitios rápidos, modernos y optimizados para convertir visitas en reservas."
-  },
-  {
-    title: "Identidad visual",
-    text: "Logo, colores, tipografía y presencia profesional."
-  },
-  {
-    title: "Presencia digital",
-    text: "SEO local, redes, Google y conexión directa con tus clientes."
-  }
-];
+export const studioServices = studioBlocks.slice(0, 3).map((block) => ({
+  title: block,
+  text: "Diseñado con estética premium, rendimiento responsive y orientación comercial."
+}));
+
+export const useCases = verticals.map((vertical) => ({
+  title: vertical.appName,
+  text: vertical.description
+}));
 
 export const pricingPlans = [
   {
-    name: "Voggix Verticales",
-    eyebrow: "Barber, Dental, Beauty y Tattoo",
-    price: "20 USD",
-    cadence: "/mes por centro",
-    description: "Tarifa plana para operar reservas, agenda y clientes sin límites artificiales.",
-    cta: "Solicitar activación",
+    name: "Voggix Studio",
+    eyebrow: "Web premium",
+    price: "Desde 250 USD",
+    cadence: "proyecto",
+    description: "Para lanzar una presencia digital premium orientada a conversión.",
+    cta: "Crear mi web",
     featured: false,
-    items: [
-      "Reservas ilimitadas",
-      "Agenda, equipo y servicios",
-      "Clientes e historial",
-      "Recordatorios y perfil profesional"
-    ]
+    items: ["Diseño responsive", "SEO básico", "WhatsApp o formulario", "Publicación en dominio"]
   },
   {
-    name: "Verticales + pagos",
-    eyebrow: "Cobros dentro de Voggix",
-    price: "35 USD",
-    cadence: "/mes total",
-    description: "Para negocios que quieren procesar pagos desde la propia plataforma.",
-    cta: "Activar pagos",
+    name: "Voggix Apps",
+    eyebrow: "Reservas y gestión",
+    price: "Desde 20 USD",
+    cadence: "/mes",
+    description: "Para negocios que necesitan agenda, reservas, profesionales y clientes.",
+    cta: "Ver productos",
     featured: true,
-    items: [
-      "Todo el plan vertical",
-      "Procesamiento de pagos",
-      "Confirmación de reserva",
-      "Flujo preparado para depósitos"
-    ]
-  },
-  {
-    name: "Studio Web Básica",
-    eyebrow: "Presencia digital inicial",
-    price: "250 USD",
-    cadence: "pago único",
-    description: "Landing profesional conectada a reservas, WhatsApp, Google y redes.",
-    cta: "Cotizar básica",
-    featured: false,
-    items: [
-      "Landing de conversión",
-      "Copy base y estructura",
-      "Integración con WhatsApp",
-      "Conexión a reservas"
-    ]
-  },
-  {
-    name: "Studio Web Premium",
-    eyebrow: "Marca y web más completa",
-    price: "350 USD",
-    cadence: "pago único",
-    description: "Web premium para negocios que necesitan una presencia más sólida y diferenciada.",
-    cta: "Cotizar premium",
-    featured: false,
-    items: [
-      "Web con más secciones",
-      "Dirección visual premium",
-      "SEO local base",
-      "Reservas, WhatsApp y redes"
-    ]
+    items: ["Reservas", "Servicios", "Profesionales", "Panel de gestión"]
   }
 ];
 
 export const customPricingNote = {
-  title: "Casos grandes y proyectos especiales",
-  text: "Clínicas, cadenas, multi-sedes, integraciones, automatizaciones o proyectos de marca avanzados se cotizan aparte.",
-  cta: "Hablar con ventas"
+  title: "Proyectos especiales",
+  text: "Hoteles, clínicas, cadenas, integraciones y automatizaciones se cotizan según alcance.",
+  cta: "Solicitar demo"
 };
-
-export const useCases = [
-  {
-    title: "Barberías",
-    text: "Agenda por barbero, servicios recurrentes y promociones para días flojos."
-  },
-  {
-    title: "Clínicas dentales",
-    text: "Confirmación de citas, recordatorios y mejor organización por doctor."
-  },
-  {
-    title: "Estudios tattoo",
-    text: "Portafolio, consultas previas y reservas de sesiones."
-  },
-  {
-    title: "Beauty pros",
-    text: "Paquetes, servicios por duración y seguimiento a clientas frecuentes."
-  }
-];
 
 export const faqs = [
   {
-    question: "¿Voggix es solo una app de reservas?",
+    question: "¿Voggix es una agencia o un software?",
     answer:
-      "No. Voggix combina reservas, agenda, gestión de clientes, promoción digital y presencia web con Voggix Studio."
+      "Es ambas cosas según la necesidad: Voggix Studio crea webs premium y Voggix Apps aporta productos verticales con reservas y gestión."
   },
   {
-    question: "¿Puedo usar Voggix si mi negocio hoy solo usa WhatsApp?",
+    question: "¿Puedo empezar solo con una web?",
     answer:
-      "Sí. La idea es ayudarte a pasar de mensajes manuales a una experiencia más profesional y organizada."
+      "Sí. Puedes comenzar con Voggix Studio y luego escalar a una vertical cuando necesites agenda, reservas y panel."
   },
   {
-    question: "¿Voggix Studio crea páginas web?",
+    question: "¿Las verticales comparten la misma marca?",
     answer:
-      "Sí. Studio puede crear landing pages, webs completas, identidad visual y presencia digital conectada con reservas."
-  },
-  {
-    question: "¿Los colores de cada vertical se mantienen?",
-    answer:
-      "Sí. Barber usa verde, Dental azul, Tattoo negro, Beauty dorado y Studio azul."
+      "Sí. iBarber, iBeauty, iDental e iTattoo viven dentro del ecosistema Voggix."
   }
 ];
 
+export const ecosystemRows = [
+  {
+    title: "Voggix Studio",
+    text: "Ideal para negocios que necesitan presencia digital premium.",
+    items: ["Web", "Marca", "SEO básico", "Dominio", "WhatsApp"]
+  },
+  {
+    title: "iBarber / iBeauty / iDental / iTattoo",
+    text: "Ideal para negocios que necesitan reservas, agenda, profesionales y gestión.",
+    items: ["Reservas", "Servicios", "Equipo", "Clientes", "Panel"]
+  }
+];
+
+export const screenshotGroups = [
+  {
+    title: "Voggix Studio",
+    text: "Webs para hoteles y negocios locales con hero, servicios, galería, CTA y reserva directa.",
+    tone: "from-blue-500 to-violet-500"
+  },
+  {
+    title: "iBarber",
+    text: "Dashboard, reservas, servicios, barberos, página pública y selección de fecha.",
+    tone: "from-emerald-400 to-teal-500"
+  },
+  {
+    title: "iDental",
+    text: "Dashboard, agenda, horarios, tratamientos y experiencia del paciente.",
+    tone: "from-blue-500 to-cyan-400"
+  },
+  {
+    title: "iBeauty",
+    text: "Mockups conceptuales para servicios, agenda, clientes y reservas desde redes.",
+    tone: "from-amber-300 to-pink-400"
+  },
+  {
+    title: "iTattoo",
+    text: "Mockups conceptuales para artistas, consultas, sesiones y agenda editorial.",
+    tone: "from-slate-900 to-slate-600"
+  }
+];
+
+export const benefits = [
+  "Imagen premium desde el primer clic",
+  "Web rápida y responsive",
+  "Servicios claros",
+  "Menos preguntas repetidas",
+  "Mejor flujo hacia WhatsApp, formulario o reserva",
+  "Panel de gestión cuando el negocio lo necesita",
+  "Activación rápida",
+  "Escalable por vertical"
+];
+
 export const businessTypeOptions = [
-  "Barbería",
-  "Clínica dental",
-  "Estudio tattoo",
-  "Salón / beauty",
-  "Necesito web / Studio",
-  "Otro"
+  "Web premium / Voggix Studio",
+  "iBarber",
+  "iBeauty",
+  "iDental",
+  "iTattoo",
+  "Otro negocio de servicios"
 ];

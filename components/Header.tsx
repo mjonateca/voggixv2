@@ -17,8 +17,8 @@ export function Header({ onDemoClick }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/88 backdrop-blur-xl">
-      <div className="section-shell flex min-h-[76px] items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/88 text-[#071124] backdrop-blur-xl">
+      <div className="section-shell flex min-h-[72px] items-center justify-between gap-4">
         <a href="#inicio" aria-label="Ir al inicio de Voggix">
           <Logo />
         </a>

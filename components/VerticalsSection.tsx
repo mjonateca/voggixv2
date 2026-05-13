@@ -33,22 +33,13 @@ export function VerticalsSection({ onDemoClick }: VerticalsSectionProps) {
               </div>
               <h3 className="mt-6 text-xl font-black text-voggix-ink">{vertical.name}</h3>
               <p className="mt-3 min-h-[84px] leading-7 text-voggix-muted">{vertical.text}</p>
-              {vertical.name === "Voggix Studio" ? (
-                <a
-                  href="#studio"
-                  className="mt-5 inline-flex rounded-lg border border-slate-200 px-4 py-2 text-sm font-black text-voggix-ink transition hover:border-voggix-blue hover:text-voggix-blue"
-                >
-                  {vertical.cta}
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  onClick={onDemoClick}
-                  className="mt-5 rounded-lg border border-slate-200 px-4 py-2 text-sm font-black text-voggix-ink transition hover:border-voggix-blue hover:text-voggix-blue"
-                >
-                  {vertical.cta}
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={onDemoClick}
+                className="mt-5 rounded-lg border border-slate-200 px-4 py-2 text-sm font-black text-voggix-ink transition hover:border-voggix-blue hover:text-voggix-blue"
+              >
+                {vertical.cta}
+              </button>
             </article>
           ))}
         </div>

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
-const title = "Voggix — Reservas, gestión y presencia digital para negocios";
+const title = "Voggix — Webs premium y sistemas digitales para negocios";
 const description =
-  "Voggix conecta, organiza y hace crecer negocios de servicios con reservas online, gestión de clientes, recordatorios, promoción digital y páginas web con Voggix Studio.";
+  "Voggix crea páginas web premium y productos verticales para negocios de servicios, citas, reservas, clientes y crecimiento digital.";
 
 const inter = Inter({
   subsets: ["latin"],

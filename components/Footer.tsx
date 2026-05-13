@@ -1,12 +1,12 @@
 import { brand } from "@/lib/constants";
 import { Logo } from "@/components/Logo";
 
-const productLinks = ["Funciones", "Precios", "FAQ"];
+const productLinks = ["Studio", "Apps", "Ecosistema", "Producto"];
 const verticalLinks = [
-  "Voggix Barber",
-  "Voggix Dental",
-  "Voggix Tattoo",
-  "Voggix Beauty",
+  "iBarber",
+  "iBeauty",
+  "iDental",
+  "iTattoo",
   "Voggix Studio"
 ];
 const legalLinks = ["Términos", "Privacidad", "Aviso legal"];
@@ -18,7 +18,7 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-5 max-w-sm leading-7 text-voggix-muted">
-            La plataforma que conecta, organiza y hace crecer negocios de servicios.
+            Webs premium y sistemas digitales para negocios que quieren crecer.
           </p>
         </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
