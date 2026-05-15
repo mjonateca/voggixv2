@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useId } from "react";
 
 type LogoProps = {
@@ -7,7 +8,7 @@ type LogoProps = {
 
 type VoggixMarkProps = {
   className?: string;
-  mode?: "gradient" | "mono";
+  mode?: "official" | "gradient" | "mono";
   color?: string;
   appIcon?: boolean;
 };
@@ -23,22 +24,21 @@ type VerticalLogoProps = {
 };
 
 export function Logo({ variant = "dark", compact = false }: LogoProps) {
-  const textColor = variant === "light" ? "text-white" : "text-[#070B14]";
-  const slashColor = variant === "light" ? "from-white via-cyan-100 to-blue-200" : "from-[#2563EB] via-[#2563EB] to-[#22D3EE]";
+  const shellClass = variant === "light"
+    ? "rounded-[12px] border border-white/18 bg-white px-3 py-2 shadow-[0_18px_60px_rgba(37,99,235,0.22)]"
+    : "";
 
   return (
-    <span className="inline-flex items-center gap-3" aria-label="Voggix">
-      <VoggixMark className={compact ? "h-9 w-11" : "h-11 w-14"} />
-      <span className={`font-display text-[1.45rem] font-black leading-none tracking-[0.055em] ${textColor}`}>
-        VOGGI
-        <span className="relative inline-block pr-0.5">
-          X
-          <span
-            className={`absolute right-[-0.08rem] top-[0.08rem] h-1.5 w-4 -rotate-45 rounded-full bg-gradient-to-r ${slashColor}`}
-            aria-hidden="true"
-          />
-        </span>
-      </span>
+    <span className={`inline-flex items-center ${shellClass}`}>
+      <Image
+        src="/voggix-logo-official.png"
+        alt="Voggix"
+        width={1188}
+        height={333}
+        className={`w-auto select-none object-contain ${compact ? "h-8" : "h-10"}`}
+        draggable={false}
+        priority
+      />
     </span>
   );
 }
@@ -109,50 +109,74 @@ export function AppLogo({
 
 export function VoggixMark({
   className = "h-10 w-12",
-  mode = "gradient",
+  mode = "official",
   color = "#2563EB",
   appIcon = false
 }: VoggixMarkProps) {
   const gradientId = useId();
-  const fill = mode === "gradient" ? `url(#${gradientId})` : color;
+  const isGradient = mode === "gradient";
+  const fill = isGradient ? `url(#${gradientId})` : color;
+
+  if (mode === "official") {
+    const officialMark = (
+      <Image
+        src="/voggix-logo-official-mark.png"
+        alt="Isotipo Voggix"
+        width={333}
+        height={333}
+        className={`select-none object-contain ${className}`}
+        draggable={false}
+      />
+    );
+
+    if (!appIcon) {
+      return officialMark;
+    }
+
+    return (
+      <span className="inline-grid h-12 w-12 place-items-center rounded-[12px] bg-white shadow-soft">
+        {officialMark}
+      </span>
+    );
+  }
 
   const mark = (
     <svg
-      viewBox="0 0 92 72"
+      viewBox="0 0 96 72"
       role="img"
       aria-label="Isotipo Voggix"
       className={className}
       fill="none"
     >
       <defs>
-        <linearGradient id={gradientId} x1="8" y1="8" x2="78" y2="63" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradientId} x1="10" y1="7" x2="83" y2="66" gradientUnits="userSpaceOnUse">
           <stop stopColor="#2563EB" />
           <stop offset="0.42" stopColor="#2563EB" />
           <stop offset="0.7" stopColor="#8B5CF6" />
           <stop offset="0.9" stopColor="#EC4899" />
           <stop offset="1" stopColor="#22D3EE" />
         </linearGradient>
-        <linearGradient id={`${gradientId}-shade`} x1="46" y1="5" x2="28" y2="48" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`${gradientId}-shade`} x1="50" y1="4" x2="30" y2="50" gradientUnits="userSpaceOnUse">
           <stop stopColor="#5B6CFF" stopOpacity="0.95" />
           <stop offset="1" stopColor="#EC4899" stopOpacity="0.12" />
         </linearGradient>
       </defs>
       <path
-        d="M7.8 13.2C6.7 11.1 8.2 8.6 10.6 8.6H25.2C26.6 8.6 27.9 9.4 28.5 10.7L43 42.7C44.1 45.2 47.7 45.4 49.1 43L68.3 10.4C69 9.3 70.2 8.6 71.5 8.6H86.3C88.9 8.6 90.4 11.5 88.9 13.6L58.5 57.1C52.9 65.2 40.8 64.3 36.4 55.5L7.8 13.2Z"
+        d="M10.9 13.2C9.6 10.9 11.3 8 14 8H29.4C30.9 8 32.3 8.9 33 10.3L47.2 41.9C48.5 44.7 52.5 44.9 54 42.2L72.6 10.2C73.2 8.8 74.7 8 76.2 8H91.4C94.1 8 95.8 11.1 94.2 13.4L64.5 58.2C58.8 66.8 46.1 66.1 41.4 56.8L10.9 13.2Z"
         fill={fill}
       />
       <path
-        d="M50.8 8.6H71.2C73.5 8.6 75 11.2 73.6 13.1L52.1 43.5C48.2 49 40.2 49.3 35.8 44.2L28.7 36L50.8 8.6Z"
-        fill={mode === "gradient" ? `url(#${gradientId}-shade)` : color}
-        opacity={mode === "gradient" ? "0.88" : "0.78"}
+        d="M53.3 8H73.6C76 8 77.5 10.7 76.1 12.7L55.4 42.2C51.4 47.8 43.3 48.3 38.8 43.1L31.6 34.8L53.3 8Z"
+        fill={isGradient ? `url(#${gradientId}-shade)` : color}
+        opacity={isGradient ? "0.88" : "0.82"}
       />
       <rect
-        x="68.2"
-        y="0.8"
-        width="14"
-        height="14"
-        rx="3.2"
-        transform="rotate(45 68.2 0.8)"
+        x="72.8"
+        y="0.6"
+        width="13.6"
+        height="13.6"
+        rx="3"
+        transform="rotate(45 72.8 0.6)"
         fill={fill}
       />
     </svg>

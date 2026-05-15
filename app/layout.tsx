@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title,
   description,
   icons: {
-    icon: "/favicon.svg"
+    icon: "/voggix-logo-official-mark.png"
   },
   openGraph: {
     title,
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
     siteName: "Voggix",
     images: [
       {
-        url: "/og-voggix.svg",
-        width: 1200,
-        height: 630,
-        alt: "Voggix, plataforma todo en uno para reservas y crecimiento"
+        url: "/voggix-logo-official.png",
+        width: 1188,
+        height: 333,
+        alt: "Logo oficial de Voggix"
       }
     ],
     locale: "es_DO",
@@ -53,7 +53,7 @@ const jsonLd = {
       url: "https://voggix.com",
       email: "hola@voggix.com",
       slogan: "Conecta. Organiza. Haz crecer.",
-      logo: "https://voggix.com/favicon.svg"
+      logo: "https://voggix.com/voggix-logo-official.png"
     },
     {
       "@type": "SoftwareApplication",
