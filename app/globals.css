@@ -14,13 +14,13 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  overflow-x: clip;
+  overflow-x: hidden;
   background:
     linear-gradient(180deg, rgba(248, 250, 252, 0.96), #ffffff 34%, #f8fafc 100%);
   color: var(--foreground);
@@ -130,6 +130,7 @@ a {
 
 .flow-hero {
   isolation: isolate;
+  overflow: hidden;
 }
 
 .story-step {
@@ -183,6 +184,29 @@ a {
   padding: 1rem;
 }
 
+.hero-product-cinema {
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.06)),
+    rgba(255, 255, 255, 0.1);
+  transform: rotate(1.4deg);
+}
+
+.hero-shot-frame {
+  position: relative;
+  margin: 0.85rem;
+  aspect-ratio: 16 / 10.5;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #020712;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.hero-shot-frame img {
+  object-fit: cover;
+  object-position: top center;
+}
+
 .device-toolbar {
   display: flex;
   align-items: center;
@@ -215,6 +239,10 @@ a {
 
 .device-toolbar strong {
   margin-left: auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: #94a3b8;
   font-size: 0.75rem;
   font-weight: 900;
@@ -291,12 +319,47 @@ a {
 .card-left {
   left: 0;
   top: 18px;
+  max-width: 260px;
+}
+
+.floating-eyebrow {
+  display: inline-flex;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.45rem 0.65rem;
+  color: #bfdbfe;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.card-left strong {
+  display: block;
+  margin-top: 0.8rem;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.25;
 }
 
 .card-right {
   right: -2%;
   bottom: 54px;
   min-width: 190px;
+}
+
+.hero-mini-panel {
+  width: 270px;
+  height: 170px;
+  overflow: hidden;
+  padding: 0;
+  transform: rotate(-3deg);
+}
+
+.hero-mini-panel img {
+  object-fit: cover;
+  object-position: top left;
 }
 
 .card-right p {
@@ -324,6 +387,18 @@ a {
   background: #020712;
   padding: 0.75rem;
   box-shadow: 0 35px 100px rgba(0, 0, 0, 0.34);
+}
+
+.hero-phone-shot {
+  height: 285px;
+  overflow: hidden;
+  padding: 0;
+  transform: rotate(-4deg);
+}
+
+.hero-phone-shot img {
+  object-fit: cover;
+  object-position: top center;
 }
 
 .phone-mock > div {
@@ -500,6 +575,55 @@ a {
   font-weight: 900;
 }
 
+.real-shot {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.real-shot img {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.real-shot > span {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 2;
+  border-radius: 999px;
+  background: rgba(2, 7, 18, 0.82);
+  padding: 0.45rem 0.7rem;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.real-build .wireframe-layer,
+.real-build .visual-layer,
+.real-build .mobile-layer {
+  min-height: 0;
+  padding: 0;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #ffffff;
+}
+
+.real-build .wireframe-layer {
+  aspect-ratio: 16 / 10;
+}
+
+.real-build .visual-layer {
+  aspect-ratio: 16 / 10;
+  box-shadow: 0 32px 110px rgba(15, 23, 42, 0.18);
+}
+
+.real-build .mobile-layer {
+  aspect-ratio: 9 / 13;
+  overflow: hidden;
+}
+
 .system-browser {
   position: absolute;
   inset: 40px 0 auto auto;
@@ -513,6 +637,33 @@ a {
 .system-mockup.is-dark .system-browser {
   border-color: rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.96);
+}
+
+.system-shot-grid {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .system-shot-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.system-shot-main,
+.system-shot-side {
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
+}
+
+.system-shot-main {
+  aspect-ratio: 16 / 10.5;
+}
+
+.system-shot-side {
+  aspect-ratio: 9 / 12;
 }
 
 .system-layout {
@@ -576,6 +727,11 @@ a {
   overflow: hidden;
 }
 
+.portfolio-real-shot {
+  aspect-ratio: 16 / 10.5;
+  border-radius: 0 0 24px 24px;
+}
+
 .portfolio-content {
   display: grid;
   gap: 1rem;
@@ -613,11 +769,18 @@ a {
   bottom: 0;
   right: 5%;
   width: 230px;
+  height: 320px;
   border-radius: 32px;
   border: 8px solid #071124;
   background: #ffffff;
-  padding: 1rem;
+  padding: 0;
+  overflow: hidden;
   box-shadow: 0 24px 80px rgba(15, 23, 42, 0.16);
+}
+
+.portfolio-phone img {
+  object-fit: cover;
+  object-position: top center;
 }
 
 .portfolio-phone p {
@@ -639,6 +802,7 @@ a {
 }
 
 .vertical-scene {
+  position: relative;
   min-height: 460px;
 }
 
@@ -652,6 +816,11 @@ a {
   background: #ffffff;
   color: #071124;
   overflow: hidden;
+}
+
+.vertical-real-main {
+  aspect-ratio: 16 / 10.5;
+  border-radius: 0 0 24px 24px;
 }
 
 .vertical-dashboard {
@@ -716,11 +885,18 @@ a {
   right: 0;
   bottom: 8px;
   width: 210px;
+  height: 300px;
   border-radius: 32px;
   border: 8px solid #071124;
   background: #ffffff;
-  padding: 1rem;
+  padding: 0;
+  overflow: hidden;
   box-shadow: 0 24px 80px rgba(15, 23, 42, 0.16);
+}
+
+.vertical-phone img {
+  object-fit: cover;
+  object-position: top center;
 }
 
 .vertical-phone p {
@@ -958,6 +1134,12 @@ a {
   padding: 0.9rem;
 }
 
+.screenshot-real {
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.22);
+}
+
 .screenshot-card h3 {
   margin-top: 1.15rem;
   color: #ffffff;
@@ -1096,6 +1278,22 @@ a {
 }
 
 @media (max-width: 767px) {
+  .flow-hero .section-shell,
+  .hero-copy {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero-copy {
+    width: min(340px, 100%);
+  }
+
+  .hero-copy h1,
+  .hero-copy p {
+    max-width: 340px;
+    overflow-wrap: break-word;
+  }
+
   [data-reveal],
   [data-reveal="left"],
   [data-reveal="right"],

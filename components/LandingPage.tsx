@@ -1,14 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import {
   benefits,
   ecosystemRows,
-  heroLayers,
   problemPoints,
   projectExamples,
-  screenshotGroups,
   studioBlocks,
   studioTimeline,
   systemModules,
@@ -18,7 +17,45 @@ import { ContactSection } from "@/components/ContactSection";
 import { DemoModal } from "@/components/DemoModal";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { AppLogo, Logo, VerticalIcon, VoggixMark, type VerticalKey } from "@/components/Logo";
+import { AppLogo, Logo, type VerticalKey } from "@/components/Logo";
+
+const productShots = {
+  ibarberPublic: "/product-shots/ibarber-public.png",
+  ibarberServices: "/product-shots/ibarber-dashboard-services.png",
+  ibeautyPublic: "/product-shots/ibeauty-public.png",
+  identalPublic: "/product-shots/idental-public.png",
+  identalOnboarding: "/product-shots/idental-onboarding.png",
+  itattooPublic: "/product-shots/itattoo-public.png",
+  itattooDashboard: "/product-shots/itattoo-dashboard.png"
+} as const;
+
+const verticalShotMap: Record<VerticalKey, { public: string; panel: string; label: string }> = {
+  barber: {
+    public: productShots.ibarberPublic,
+    panel: productShots.ibarberServices,
+    label: "Página pública y panel iBarber"
+  },
+  beauty: {
+    public: productShots.ibeautyPublic,
+    panel: productShots.ibeautyPublic,
+    label: "Página pública iBeauty"
+  },
+  dental: {
+    public: productShots.identalPublic,
+    panel: productShots.identalOnboarding,
+    label: "Página pública y onboarding iDental"
+  },
+  tattoo: {
+    public: productShots.itattooPublic,
+    panel: productShots.itattooDashboard,
+    label: "Página pública y panel iTattoo"
+  },
+  studio: {
+    public: productShots.ibarberPublic,
+    panel: productShots.ibarberServices,
+    label: "Proyecto Voggix Studio"
+  }
+};
 
 export function LandingPage() {
   const [isDemoOpen, setIsDemoOpen] = useState(false);
@@ -81,7 +118,7 @@ function Hero({ onDemoClick }: { onDemoClick: () => void }) {
           <h1 className="mt-10 font-display text-[4.4rem] font-black leading-[0.9] tracking-normal text-white sm:text-[6.5rem] lg:text-[9rem]">
             Voggix
           </h1>
-          <p className="mt-7 max-w-xl text-balance text-2xl font-semibold leading-tight text-white sm:text-4xl">
+          <p className="mt-7 max-w-xl text-balance text-[1.45rem] font-semibold leading-tight text-white sm:text-4xl">
             Webs premium y sistemas digitales para negocios que quieren crecer.
           </p>
           <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
@@ -101,7 +138,7 @@ function Hero({ onDemoClick }: { onDemoClick: () => void }) {
           </div>
         </div>
 
-          <div className="hero-device relative min-h-[610px]">
+        <div className="hero-device relative min-h-[610px]">
           <HeroConstellation />
         </div>
       </div>
@@ -342,26 +379,48 @@ function EcosystemSection() {
 }
 
 function ScreensSection() {
+  const galleryShots = [
+    {
+      title: "iBarber público",
+      text: "Página pública real con barberos, servicios, ubicación y reserva.",
+      src: productShots.ibarberPublic,
+      className: "lg:col-span-2"
+    },
+    {
+      title: "Panel iBarber",
+      text: "Servicios, duración, precio y activación desde el panel real.",
+      src: productShots.ibarberServices
+    },
+    {
+      title: "iBeauty",
+      text: "Experiencia pública para salón, estilistas y servicios beauty.",
+      src: productShots.ibeautyPublic
+    },
+    {
+      title: "iDental",
+      text: "Clínica, profesionales, tratamientos y flujo de paciente.",
+      src: productShots.identalPublic
+    },
+    {
+      title: "iTattoo",
+      text: "Estudio, artistas, servicios y panel con estética editorial.",
+      src: productShots.itattooPublic
+    }
+  ];
+
   return (
     <section id="screens" className="overflow-clip bg-[#071124] py-24 text-white lg:py-32">
       <div className="section-shell">
         <div data-reveal="up" className="max-w-4xl">
           <h2 className="section-title text-white">Producto real, diseño real, negocio real.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-300">
-            Mockups de producto y escenas de trabajo para Voggix Studio y las verticales. Las capturas no finales
-            se presentan como diseño conceptual de producto.
+            Capturas reales de las verticales funcionando: páginas públicas, servicios, paneles y flujos de activación.
           </p>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-          {screenshotGroups.map((group, index) => (
-            <article key={group.title} data-reveal={index % 2 === 0 ? "left" : "right"} className={`screenshot-card ${index === 0 ? "lg:col-span-2" : ""}`}>
-              <div className={`screenshot-visual bg-gradient-to-br ${group.tone}`}>
-                <div className="mock-browser"><span /><span /><span /></div>
-                <div className="mock-product-window">
-                  <Logo variant="light" compact />
-                  <div className="mock-lines"><i /><i /><i /></div>
-                </div>
-              </div>
+          {galleryShots.map((group, index) => (
+            <article key={group.title} data-reveal={index % 2 === 0 ? "left" : "right"} className={`screenshot-card ${group.className ?? ""}`}>
+              <RealShot src={group.src} alt={group.title} className="screenshot-real" />
               <h3>{group.title}</h3>
               <p>{group.text}</p>
             </article>
@@ -427,34 +486,39 @@ function FinalCTA({ onDemoClick }: { onDemoClick: () => void }) {
 function HeroConstellation() {
   return (
     <div className="constellation">
-      <div className="main-device">
-        <div className="device-toolbar"><span /><span /><span /><strong>voggix.com</strong></div>
-        <div className="device-grid">
-          <div className="device-hero">
-            <VoggixMark className="h-16 w-20" />
-            <h3>Web premium lista para convertir.</h3>
-            <p>Servicios, prueba visual, CTA y contacto directo.</p>
-          </div>
-          <div className="device-stack">
-            {heroLayers.slice(0, 5).map((layer, index) => (
-              <span key={layer} style={{ transitionDelay: `${index * 70}ms` }}>{layer}</span>
-            ))}
-          </div>
+      <div className="hero-product-cinema main-device">
+        <div className="device-toolbar"><span /><span /><span /><strong>i-barber.com</strong></div>
+        <div className="hero-shot-frame">
+          <Image
+            src={productShots.ibarberPublic}
+            alt="Página pública real de iBarber con servicios y reservas"
+            fill
+            sizes="(min-width: 1024px) 660px, 92vw"
+            priority
+          />
         </div>
       </div>
       <div className="floating-card card-left">
-        <AppLogo vertical="studio" label="Studio" color="#2563EB" compact dark />
+        <span className="floating-eyebrow">Producto real</span>
+        <strong>Web, servicios y reserva en una sola experiencia.</strong>
       </div>
-      <div className="floating-card card-right">
-        <p>Reserva directa</p>
-        <strong>Hoy, 5:30 PM</strong>
+      <div className="floating-card card-right hero-mini-panel">
+        <Image
+          src={productShots.ibarberServices}
+          alt="Panel real de servicios iBarber"
+          fill
+          sizes="260px"
+          priority
+        />
       </div>
-      <div className="phone-mock">
-        <div>
-          <VoggixMark className="h-12 w-14" />
-          <p>Tu negocio conectado con más clientes.</p>
-          <span>Reservar ahora</span>
-        </div>
+      <div className="hero-phone-shot phone-mock">
+        <Image
+          src={productShots.identalOnboarding}
+          alt="Onboarding real de iDental"
+          fill
+          sizes="210px"
+          priority
+        />
       </div>
     </div>
   );
@@ -475,23 +539,25 @@ function ProblemCluster() {
 
 function StudioBuildMockup() {
   return (
-    <div className="build-mockup">
-      <div className="wireframe-layer">
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className="visual-layer">
-        <div>
-          <p>Hotel Manila</p>
-          <h3>Reserva una experiencia boutique.</h3>
-          <span>Reservar directo</span>
-        </div>
-      </div>
-      <div className="mobile-layer">
-        <VoggixMark className="h-9 w-11" />
-        <p>WhatsApp + reserva</p>
-      </div>
+    <div className="build-mockup real-build">
+      <RealShot
+        src={productShots.ibeautyPublic}
+        alt="Web real de iBeauty con estilistas y servicios"
+        className="wireframe-layer real-shot-card"
+        label="Web pública"
+      />
+      <RealShot
+        src={productShots.ibarberPublic}
+        alt="Web real de iBarber con barberos, servicios y ubicación"
+        className="visual-layer real-shot-card"
+        label="Servicios y reserva"
+      />
+      <RealShot
+        src={productShots.identalPublic}
+        alt="Web real de iDental con profesionales y tratamientos"
+        className="mobile-layer real-shot-card"
+        label="Mobile ready"
+      />
     </div>
   );
 }
@@ -500,20 +566,18 @@ function SystemLayerMockup({ dark = false }: { dark?: boolean }) {
   return (
     <div className={`system-mockup ${dark ? "is-dark" : ""}`}>
       <div className="system-browser">
-        <div className="device-toolbar"><span /><span /><span /><strong>Voggix OS</strong></div>
-        <div className="system-layout">
-          <aside>
-            <Logo compact />
-            {["Servicios", "Equipo", "Reservas", "Clientes"].map((item) => <span key={item}>{item}</span>)}
-          </aside>
-          <main>
-            <div className="calendar-row">
-              {["10:00", "11:30", "14:00", "17:30"].map((time) => <span key={time}>{time}</span>)}
-            </div>
-            <div className="booking-list">
-              {["Corte premium", "Limpieza dental", "Manicura", "Consulta tattoo"].map((item) => <p key={item}>{item}</p>)}
-            </div>
-          </main>
+        <div className="device-toolbar"><span /><span /><span /><strong>Panel real</strong></div>
+        <div className="system-shot-grid">
+          <RealShot
+            src={productShots.ibarberServices}
+            alt="Panel real de servicios iBarber"
+            className="system-shot-main"
+          />
+          <RealShot
+            src={productShots.itattooDashboard}
+            alt="Dashboard real de iTattoo"
+            className="system-shot-side"
+          />
         </div>
       </div>
     </div>
@@ -525,53 +589,64 @@ function StudioPortfolioMockup() {
     <div className="portfolio-mockup">
       <div className="portfolio-browser">
         <div className="device-toolbar"><span /><span /><span /><strong>Voggix Studio</strong></div>
-        <div className="portfolio-content">
-          <div>
-            <p>i-barber.com</p>
-            <h3>Una página pública con servicios, barberos y reservas.</h3>
-            <span>Reservar cita</span>
-          </div>
-          <div className="portfolio-gallery">
-            <i />
-            <i />
-            <i />
-          </div>
-        </div>
+        <RealShot
+          src={productShots.ibarberPublic}
+          alt="Proyecto real iBarber como página pública con reservas"
+          className="portfolio-real-shot"
+        />
       </div>
       <div className="portfolio-phone">
-        <AppLogo vertical="barber" label="Barber" color="#10B981" compact />
-        <p>Corte + barba</p>
-        <span>Elegir horario</span>
+        <Image
+          src={productShots.ibeautyPublic}
+          alt="Vista real de iBeauty"
+          fill
+          sizes="180px"
+        />
       </div>
     </div>
   );
 }
 
 function VerticalScene({ vertical }: { vertical: (typeof verticals)[number] }) {
+  const shots = verticalShotMap[vertical.key as VerticalKey];
+
   return (
     <div className="vertical-scene">
       <div className="vertical-browser">
         <div className="device-toolbar"><span /><span /><span /><strong>{vertical.appName}</strong></div>
-        <div className="vertical-dashboard">
-          <div className="vertical-rail">
-            <AppLogo vertical={vertical.key as VerticalKey} label={vertical.shortName} color={vertical.color} compact />
-            {vertical.points.slice(0, 4).map((point) => <span key={point}>{point}</span>)}
-          </div>
-          <div className="vertical-panel">
-            {vertical.screens.slice(0, 6).map((screen) => (
-              <div key={screen}>
-                <i style={{ backgroundColor: vertical.color }} />
-                <p>{screen}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <RealShot
+          src={shots.public}
+          alt={`${vertical.appName}: ${shots.label}`}
+          className="vertical-real-main"
+        />
       </div>
       <div className="vertical-phone" style={{ "--accent": vertical.color } as CSSProperties}>
-        <p>{vertical.appName}</p>
-        <strong>Confirma tu cita</strong>
-        {vertical.points.slice(0, 3).map((point) => <span key={point}>{point}</span>)}
+        <Image
+          src={shots.panel}
+          alt={`${vertical.appName}: panel o configuración real`}
+          fill
+          sizes="220px"
+        />
       </div>
+    </div>
+  );
+}
+
+function RealShot({
+  src,
+  alt,
+  className = "",
+  label
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  label?: string;
+}) {
+  return (
+    <div className={`real-shot ${className}`}>
+      <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 560px, 92vw" />
+      {label ? <span>{label}</span> : null}
     </div>
   );
 }
