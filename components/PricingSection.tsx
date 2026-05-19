@@ -13,7 +13,7 @@ export function PricingSection({ onDemoClick }: PricingSectionProps) {
           title="Planes simples, sin letra pequeña"
           text="Tarifa plana para verticales, pagos opcionales y paquetes claros para Voggix Studio."
         />
-        <div className="mt-12 grid gap-4 lg:grid-cols-4">
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
           {pricingPlans.map((plan) => (
             <article
               key={plan.name}

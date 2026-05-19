@@ -23,9 +23,17 @@ export const brand = {
 export const navItems = [
   { label: "Studio", href: "#studio" },
   { label: "Apps", href: "#apps" },
+  { label: "Precios", href: "#precios" },
   { label: "Ecosistema", href: "#ecosistema" },
   { label: "Producto", href: "#screens" },
   { label: "Contacto", href: "#contacto" }
+];
+
+export const trustNumbers = [
+  { value: "4", label: "Verticales activas" },
+  { value: "100%", label: "Producto real" },
+  { value: "<48h", label: "Activación" },
+  { value: "0", label: "Permanencia inicial" }
 ];
 
 export const heroLayers = [
@@ -282,20 +290,48 @@ export const pricingPlans = [
     eyebrow: "Web premium",
     price: "Desde 250 USD",
     cadence: "proyecto",
-    description: "Para lanzar una presencia digital premium orientada a conversión.",
+    description: "Para lanzar una presencia digital premium que explique tu valor y convierta visitas en contactos.",
     cta: "Crear mi web",
     featured: false,
-    items: ["Diseño responsive", "SEO básico", "WhatsApp o formulario", "Publicación en dominio"]
+    items: [
+      "Diseño responsive premium",
+      "SEO técnico y local",
+      "WhatsApp o formulario",
+      "Publicación en dominio",
+      "Entrega en 5-10 días"
+    ]
   },
   {
     name: "Voggix Apps",
     eyebrow: "Reservas y gestión",
     price: "Desde 20 USD",
     cadence: "/mes",
-    description: "Para negocios que necesitan agenda, reservas, profesionales y clientes.",
-    cta: "Ver productos",
+    description: "Para negocios que necesitan agenda, reservas, profesionales, clientes y panel de gestión.",
+    cta: "Activar mi vertical",
     featured: true,
-    items: ["Reservas", "Servicios", "Profesionales", "Panel de gestión"]
+    items: [
+      "Página pública con reservas",
+      "Servicios, precios y horarios",
+      "Panel de administración",
+      "Notificaciones y recordatorios",
+      "Métricas operativas"
+    ]
+  },
+  {
+    name: "Studio + Apps",
+    eyebrow: "Ecosistema completo",
+    price: "Personalizado",
+    cadence: "",
+    description: "Web premium más sistema de reservas y gestión. Todo conectado desde el día uno.",
+    cta: "Solicitar propuesta",
+    featured: false,
+    items: [
+      "Todo de Studio",
+      "Todo de Apps",
+      "Integración completa",
+      "Soporte prioritario",
+      "Onboarding guiado"
+    ]
   }
 ];
 
@@ -320,6 +356,21 @@ export const faqs = [
     question: "¿Las verticales comparten la misma marca?",
     answer:
       "Sí. iBarber, iBeauty, iDental e iTattoo viven dentro del ecosistema Voggix."
+  },
+  {
+    question: "¿Cuánto tarda en estar lista mi web?",
+    answer:
+      "Una web de Voggix Studio normalmente se entrega en 5 a 10 días hábiles según alcance. Las verticales de reservas pueden activarse en menos de 48 horas."
+  },
+  {
+    question: "¿Necesito conocimientos técnicos?",
+    answer:
+      "No. Voggix se encarga de diseño, desarrollo, publicación, dominio, SEO básico y conexión con WhatsApp, formularios o reservas."
+  },
+  {
+    question: "¿Puedo cancelar cuando quiera?",
+    answer:
+      "Sí. Las verticales de Voggix Apps son mensuales y sin permanencia. Voggix Studio es un proyecto de pago único."
   }
 ];
 
