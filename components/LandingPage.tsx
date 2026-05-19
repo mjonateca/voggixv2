@@ -5,18 +5,22 @@ import { useEffect, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import {
   benefits,
+  brand,
   ecosystemRows,
   problemPoints,
   projectExamples,
   studioBlocks,
   studioTimeline,
   systemModules,
+  trustNumbers,
   verticals
 } from "@/lib/constants";
 import { ContactSection } from "@/components/ContactSection";
 import { DemoModal } from "@/components/DemoModal";
+import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { PricingSection } from "@/components/PricingSection";
 import { AppLogo, Logo, type VerticalKey } from "@/components/Logo";
 
 const productShots = {
@@ -26,7 +30,8 @@ const productShots = {
   identalPublic: "/product-shots/idental-public.png",
   identalOnboarding: "/product-shots/idental-onboarding.png",
   itattooPublic: "/product-shots/itattoo-public.png",
-  itattooDashboard: "/product-shots/itattoo-dashboard.png"
+  itattooDashboard: "/product-shots/itattoo-dashboard.png",
+  heroMockup: "/product-shots/hero-mockup-ibarber.png"
 } as const;
 
 const verticalShotMap: Record<VerticalKey, { public: string; panel: string; label: string }> = {
@@ -88,22 +93,26 @@ export function LandingPage() {
       <Header onDemoClick={() => setIsDemoOpen(true)} />
       <main className="overflow-clip">
         <Hero onDemoClick={() => setIsDemoOpen(true)} />
-        <ContinuousEvolution />
+        <TrustBar />
+        <ProblemSection />
         <StudioSection />
         <SystemSection />
         <AppsSection />
-        <EcosystemSection />
         <ScreensSection />
+        <PricingSection onDemoClick={() => setIsDemoOpen(true)} />
         <BenefitsSection />
+        <FAQSection />
         <FinalCTA onDemoClick={() => setIsDemoOpen(true)} />
         <ContactSection />
       </main>
       <Footer />
+      <FloatingWhatsApp />
       <DemoModal isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
     </>
   );
 }
 
+/* ── Hero ── */
 function Hero({ onDemoClick }: { onDemoClick: () => void }) {
   return (
     <section id="inicio" className="flow-hero relative min-h-[calc(100svh-72px)] bg-[#020712] text-white">
@@ -112,115 +121,141 @@ function Hero({ onDemoClick }: { onDemoClick: () => void }) {
         <div className="cinema-grid absolute inset-0 opacity-50" />
       </div>
 
-      <div className="section-shell relative grid min-h-[calc(100svh-72px)] items-center gap-12 py-16 lg:grid-cols-[0.88fr_1.12fr]">
+      <div className="section-shell relative grid min-h-[calc(100svh-72px)] items-center gap-12 py-16 lg:grid-cols-[0.92fr_1.08fr]">
         <div className="hero-copy max-w-2xl">
-          <Logo variant="light" />
-          <h1 className="mt-10 font-display text-[4.4rem] font-black leading-[0.9] tracking-normal text-white sm:text-[6.5rem] lg:text-[9rem]">
-            Voggix
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 py-2">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+            <span className="text-sm font-bold text-slate-300">Plataforma activa — verticales funcionando</span>
+          </div>
+
+          <h1 className="mt-8 font-display text-[clamp(2.8rem,7vw,5.5rem)] font-black leading-[0.92] tracking-tight text-white">
+            Tu negocio merece una experiencia digital que
+            <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-cyan-300 bg-clip-text text-transparent"> convierta</span>.
           </h1>
-          <p className="mt-7 max-w-xl text-balance text-[1.45rem] font-semibold leading-tight text-white sm:text-4xl">
-            Webs premium y sistemas digitales para negocios que quieren crecer.
-          </p>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-            Creamos experiencias digitales que convierten visitas, mensajes y consultas en clientes,
-            reservas y oportunidades reales.
+          <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">
+            Webs premium, reservas online, gestión de servicios y panel de control.
+            Todo lo que necesitas para que tu negocio deje de perder clientes por falta de presencia digital.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#studio" className="premium-button bg-white text-[#071124] hover:bg-slate-100">
-              Explorar Voggix Studio
+            <a
+              href={brand.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="premium-button bg-emerald-500 text-white hover:bg-emerald-400"
+            >
+              <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Hablar por WhatsApp
             </a>
-            <a href="#apps" className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14">
-              Ver verticales
-            </a>
-            <button type="button" onClick={onDemoClick} className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14">
+            <button
+              type="button"
+              onClick={onDemoClick}
+              className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14"
+            >
               Solicitar demo
             </button>
           </div>
         </div>
 
-        <div className="hero-device relative min-h-[610px]">
-          <HeroConstellation />
+        <div className="hero-device relative hidden min-h-[520px] lg:block">
+          <div className="hero-mockup-container">
+            <Image
+              src={productShots.heroMockup}
+              alt="iBarber by Voggix — Sistema de reservas para barberías con panel de gestión, agenda y pagos"
+              fill
+              sizes="(min-width: 1024px) 620px, 0px"
+              className="object-contain object-center"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Mobile: show a simpler version */}
+        <div className="relative lg:hidden">
+          <div className="hero-product-cinema main-device-mobile">
+            <div className="device-toolbar"><span /><span /><span /><strong>i-barber.com</strong></div>
+            <div className="hero-shot-frame-mobile">
+              <Image
+                src={productShots.ibarberPublic}
+                alt="Página pública real de iBarber"
+                fill
+                sizes="92vw"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function ContinuousEvolution() {
+/* ── Trust Bar ── */
+function TrustBar() {
   return (
-    <section className="evolution-river relative bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
-      <div className="section-shell relative">
-        <div className="flow-spine" aria-hidden="true" />
-        <div className="grid gap-20">
-          <StoryStep
-            eyebrow="01"
-            title="Tu negocio no necesita solo estar online. Necesita convertir."
-            text="Mensajes, precios, servicios y reservas se sienten sueltos cuando no hay una experiencia digital clara."
-            direction="left"
-          >
-            <ProblemCluster />
-          </StoryStep>
-
-          <StoryStep
-            eyebrow="02"
-            title="Primero aparece una web premium."
-            text="Voggix Studio ordena la primera impresión: propuesta, servicios, confianza, WhatsApp y reserva directa."
-            direction="right"
-          >
-            <StudioBuildMockup />
-          </StoryStep>
-
-          <StoryStep
-            eyebrow="03"
-            title="Después la web empieza a operar."
-            text="Servicios, profesionales, calendario, clientes y panel se montan sobre la presencia digital."
-            direction="left"
-          >
-            <SystemLayerMockup />
-          </StoryStep>
+    <section className="relative z-10 -mt-1 border-b border-slate-200 bg-white py-8">
+      <div className="section-shell">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          {trustNumbers.map((item) => (
+            <div key={item.label} className="text-center">
+              <p className="font-display text-3xl font-black text-[#071124] md:text-4xl">{item.value}</p>
+              <p className="mt-1 text-sm font-bold text-slate-500">{item.label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function StoryStep({
-  eyebrow,
-  title,
-  text,
-  direction,
-  children
-}: {
-  eyebrow: string;
-  title: string;
-  text: string;
-  direction: "left" | "right";
-  children: ReactNode;
-}) {
+/* ── Problem Section ── */
+function ProblemSection() {
   return (
-    <article className={`story-step ${direction === "right" ? "lg:grid-cols-[1.05fr_0.95fr]" : "lg:grid-cols-[0.95fr_1.05fr]"}`}>
-      <div data-reveal={direction === "right" ? "right" : "left"} className={direction === "right" ? "lg:order-2" : ""}>
-        <p className="text-sm font-black uppercase tracking-[0.22em] text-voggix-blue">{eyebrow}</p>
-        <h2 className="mt-5 text-balance font-display text-5xl font-black leading-[0.98] text-[#071124] md:text-6xl">
-          {title}
-        </h2>
-        <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">{text}</p>
+    <section className="relative bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
+      <div className="section-shell">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div data-reveal="left">
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-voggix-blue">El problema</p>
+            <h2 className="mt-5 text-balance font-display text-5xl font-black leading-[0.98] text-[#071124] md:text-6xl">
+              Tu negocio pierde clientes cada día sin una presencia digital clara.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+              Cuando un cliente busca tus servicios y no encuentra una web profesional con precios, horarios y forma de reservar, se va con tu competencia.
+            </p>
+          </div>
+          <div data-reveal="right" className="grid gap-3 sm:grid-cols-2">
+            {problemPoints.map((point, index) => (
+              <div
+                key={point}
+                className={`rounded-2xl border p-5 ${
+                  index === problemPoints.length - 1
+                    ? "border-transparent bg-[#071124] text-white"
+                    : "border-slate-200 bg-white text-[#071124]"
+                }`}
+              >
+                <span className={`text-xs font-black ${index === problemPoints.length - 1 ? "text-cyan-300" : "text-voggix-blue"}`}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-3 text-[0.95rem] font-bold leading-snug">{point}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <div data-reveal={direction === "right" ? "left" : "right"}>{children}</div>
-    </article>
+    </section>
   );
 }
 
+/* ── Studio Section ── */
 function StudioSection() {
   return (
     <section id="studio" className="relative overflow-clip bg-white py-24 text-[#071124] lg:py-32">
       <div className="section-shell grid gap-14 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
         <div data-reveal="left">
           <AppLogo vertical="studio" label="Studio" color="#2563EB" />
-          <h2 className="section-title mt-8">Voggix Studio crea la primera impresión que tu negocio merece.</h2>
+          <h2 className="section-title mt-8">La primera impresión que tu negocio merece.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            Diseñamos y desarrollamos páginas web premium para negocios que necesitan verse mejor,
-            explicar mejor su valor y convertir más visitas en contactos, reservas o ventas.
+            Voggix Studio diseña y desarrolla webs premium para negocios que necesitan explicar mejor su valor
+            y convertir más visitas en contactos, reservas o ventas.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
             {projectExamples.map((item) => (
@@ -229,6 +264,14 @@ function StudioSection() {
               </span>
             ))}
           </div>
+          <a
+            href={brand.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#071124] px-6 py-3 text-sm font-black text-white transition hover:bg-slate-800"
+          >
+            Quiero mi web premium
+          </a>
         </div>
 
         <div data-reveal="right" className="space-y-5">
@@ -255,42 +298,36 @@ function StudioSection() {
   );
 }
 
+/* ── System Section ── */
 function SystemSection() {
   return (
     <section className="relative overflow-clip bg-[#071124] py-24 text-white lg:py-32">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(37,99,235,0.32),transparent_30%),radial-gradient(circle_at_22%_70%,rgba(34,211,238,0.18),transparent_28%)]" />
       <div className="section-shell relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <div data-reveal="left">
-          <h2 className="section-title text-white">
-            Y cuando tu negocio necesita más que una web, Voggix activa el sistema.
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-cyan-300">Más que una web</p>
+          <h2 className="section-title mt-5 text-white">
+            Cuando necesitas más, Voggix activa el sistema completo.
           </h2>
           <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-            Algunos negocios solo necesitan una web premium. Otros necesitan agenda, reservas,
-            profesionales, servicios, clientes y panel de gestión.
+            Servicios, profesionales, calendario, clientes, reservas y panel de gestión.
+            Todo montado sobre tu presencia digital.
           </p>
-        </div>
-        <div data-reveal="right" className="relative min-h-[580px]">
-          <SystemLayerMockup dark />
-          <div className="absolute inset-0 pointer-events-none">
-            {systemModules.map((module, index) => (
-              <span
-                key={module}
-                className="module-chip"
-                style={{
-                  left: `${index % 2 === 0 ? 1 : 67}%`,
-                  top: `${6 + index * 11}%`
-                }}
-              >
-                {module}
-              </span>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {systemModules.map((module) => (
+              <span key={module} className="module-chip-inline">{module}</span>
             ))}
           </div>
+        </div>
+        <div data-reveal="right" className="relative min-h-[480px]">
+          <SystemLayerMockup dark />
         </div>
       </div>
     </section>
   );
 }
 
+/* ── Apps Section ── */
 function AppsSection() {
   const [active, setActive] = useState(0);
   const current = verticals[active];
@@ -299,9 +336,10 @@ function AppsSection() {
     <section id="apps" className="relative bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
       <div className="section-shell">
         <div data-reveal="up" className="max-w-4xl">
-          <h2 className="section-title">Un mismo motor. Verticales diseñadas para cada negocio.</h2>
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-voggix-blue">Verticales</p>
+          <h2 className="section-title mt-5">Un motor. Cuatro verticales. Tu negocio.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            Voggix Apps adapta reservas, servicios, profesionales y gestión a la forma en que opera cada vertical.
+            Voggix Apps adapta reservas, servicios, profesionales y gestión a la forma en que opera cada tipo de negocio.
           </p>
         </div>
 
@@ -334,11 +372,18 @@ function AppsSection() {
                 <ul className="mt-7 space-y-3">
                   {current.points.map((point) => (
                     <li key={point} className="flex items-center gap-3 text-sm font-black text-slate-800">
-                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: current.color }} />
+                      <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: current.color }} />
                       {point}
                     </li>
                   ))}
                 </ul>
+                <a
+                  href="#precios"
+                  className="mt-6 inline-flex rounded-full px-5 py-2.5 text-sm font-black text-white transition hover:opacity-90"
+                  style={{ backgroundColor: current.color }}
+                >
+                  Ver precios
+                </a>
               </div>
               <VerticalScene vertical={current} />
             </div>
@@ -349,61 +394,33 @@ function AppsSection() {
   );
 }
 
-function EcosystemSection() {
-  return (
-    <section id="ecosistema" className="bg-white py-24 text-[#071124] lg:py-32">
-      <div className="section-shell">
-        <div data-reveal="up" className="max-w-4xl">
-          <h2 className="section-title">Empieza con una web. Escala con un sistema.</h2>
-          <p className="mt-6 text-lg leading-8 text-slate-600">
-            Voggix no es solo diseño. No es solo software. Es una forma de convertir negocios reales en
-            experiencias digitales claras, modernas y preparadas para vender.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-5 lg:grid-cols-2">
-          {ecosystemRows.map((row, index) => (
-            <article key={row.title} data-reveal={index === 0 ? "left" : "right"} className="ecosystem-panel">
-              <h3>{row.title}</h3>
-              <p>{row.text}</p>
-              <div>
-                {row.items.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
+/* ── Screens Section ── */
 function ScreensSection() {
   const galleryShots = [
     {
-      title: "iBarber público",
-      text: "Página pública real con barberos, servicios, ubicación y reserva.",
+      title: "iBarber — Página pública",
+      text: "Barberos, servicios, ubicación y reserva online desde un solo enlace.",
       src: productShots.ibarberPublic,
       className: "lg:col-span-2"
     },
     {
-      title: "Panel iBarber",
-      text: "Servicios, duración, precio y activación desde el panel real.",
+      title: "iBarber — Panel",
+      text: "Servicios, duración, precio y activación desde el panel de gestión.",
       src: productShots.ibarberServices
     },
     {
       title: "iBeauty",
-      text: "Experiencia pública para salón, estilistas y servicios beauty.",
+      text: "Estilistas, servicios beauty y reserva para salones.",
       src: productShots.ibeautyPublic
     },
     {
       title: "iDental",
-      text: "Clínica, profesionales, tratamientos y flujo de paciente.",
+      text: "Profesionales, tratamientos y flujo de paciente.",
       src: productShots.identalPublic
     },
     {
       title: "iTattoo",
-      text: "Estudio, artistas, servicios y panel con estética editorial.",
+      text: "Artistas, portafolio y agenda con estética editorial.",
       src: productShots.itattooPublic
     }
   ];
@@ -412,9 +429,10 @@ function ScreensSection() {
     <section id="screens" className="overflow-clip bg-[#071124] py-24 text-white lg:py-32">
       <div className="section-shell">
         <div data-reveal="up" className="max-w-4xl">
-          <h2 className="section-title text-white">Producto real, diseño real, negocio real.</h2>
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-cyan-300">Producto real</p>
+          <h2 className="section-title mt-5 text-white">Esto no es un mockup. Es producto funcionando.</h2>
           <p className="mt-6 text-lg leading-8 text-slate-300">
-            Capturas reales de las verticales funcionando: páginas públicas, servicios, paneles y flujos de activación.
+            Capturas reales de las verticales activas. Páginas públicas, paneles de gestión y flujos de reserva.
           </p>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
@@ -431,6 +449,7 @@ function ScreensSection() {
   );
 }
 
+/* ── Benefits ── */
 function BenefitsSection() {
   return (
     <section className="bg-[#F8FAFC] py-24 text-[#071124] lg:py-32">
@@ -451,6 +470,7 @@ function BenefitsSection() {
   );
 }
 
+/* ── Final CTA ── */
 function FinalCTA({ onDemoClick }: { onDemoClick: () => void }) {
   return (
     <section className="relative overflow-clip bg-white py-24 text-[#071124] lg:py-32">
@@ -459,18 +479,23 @@ function FinalCTA({ onDemoClick }: { onDemoClick: () => void }) {
           <div className="relative z-10 max-w-4xl">
             <Logo variant="light" />
             <h2 className="mt-10 text-balance font-display text-5xl font-black leading-[0.98] text-white md:text-7xl">
-              Construyamos la experiencia digital que tu negocio merece.
+              Tu competencia ya tiene presencia digital. ¿Y tú?
             </h2>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300">
-              Con Voggix Studio puedes lanzar una web premium. Con Voggix Apps puedes convertirla en un
-              sistema de reservas y gestión para tu vertical.
+              Empieza con una web premium o activa un sistema completo de reservas y gestión.
+              Sin compromiso a largo plazo. Sin complicaciones técnicas.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <a href="#studio" className="premium-button bg-white text-[#071124] hover:bg-slate-100">
-                Crear mi web
+              <a
+                href={brand.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="premium-button bg-emerald-500 text-white hover:bg-emerald-400"
+              >
+                Hablar por WhatsApp
               </a>
-              <a href="#apps" className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14">
-                Ver productos
+              <a href="#precios" className="premium-button border border-white/18 bg-white/8 text-white hover:bg-white/14">
+                Ver precios
               </a>
               <button type="button" onClick={onDemoClick} className="premium-button bg-voggix-blue text-white hover:bg-blue-500">
                 Solicitar demo
@@ -483,106 +508,24 @@ function FinalCTA({ onDemoClick }: { onDemoClick: () => void }) {
   );
 }
 
-function HeroConstellation() {
+/* ── Floating WhatsApp ── */
+function FloatingWhatsApp() {
   return (
-    <div className="constellation">
-      <div className="hero-product-cinema main-device">
-        <div className="device-toolbar"><span /><span /><span /><strong>i-barber.com</strong></div>
-        <div className="hero-shot-frame">
-          <Image
-            src={productShots.ibarberPublic}
-            alt="Página pública real de iBarber con servicios y reservas"
-            fill
-            sizes="(min-width: 1024px) 660px, 92vw"
-            priority
-          />
-        </div>
-      </div>
-      <div className="floating-card card-left">
-        <span className="floating-eyebrow">Producto real</span>
-        <strong>Web, servicios y reserva en una sola experiencia.</strong>
-      </div>
-      <div className="floating-card card-right hero-mini-panel">
-        <Image
-          src={productShots.ibarberServices}
-          alt="Panel real de servicios iBarber"
-          fill
-          sizes="260px"
-          priority
-        />
-      </div>
-      <div className="hero-phone-shot phone-mock">
-        <Image
-          src={productShots.identalOnboarding}
-          alt="Onboarding real de iDental"
-          fill
-          sizes="210px"
-          priority
-        />
-      </div>
-    </div>
+    <a
+      href={brand.whatsappHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="whatsapp-float"
+      aria-label="Contactar por WhatsApp"
+    >
+      <svg className="h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+      </svg>
+    </a>
   );
 }
 
-function ProblemCluster() {
-  return (
-    <div className="problem-cluster">
-      {problemPoints.map((point, index) => (
-        <div key={point} className={index === problemPoints.length - 1 ? "is-clean" : ""}>
-          <span>{String(index + 1).padStart(2, "0")}</span>
-          <p>{point}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function StudioBuildMockup() {
-  return (
-    <div className="build-mockup real-build">
-      <RealShot
-        src={productShots.ibeautyPublic}
-        alt="Web real de iBeauty con estilistas y servicios"
-        className="wireframe-layer real-shot-card"
-        label="Web pública"
-      />
-      <RealShot
-        src={productShots.ibarberPublic}
-        alt="Web real de iBarber con barberos, servicios y ubicación"
-        className="visual-layer real-shot-card"
-        label="Servicios y reserva"
-      />
-      <RealShot
-        src={productShots.identalPublic}
-        alt="Web real de iDental con profesionales y tratamientos"
-        className="mobile-layer real-shot-card"
-        label="Mobile ready"
-      />
-    </div>
-  );
-}
-
-function SystemLayerMockup({ dark = false }: { dark?: boolean }) {
-  return (
-    <div className={`system-mockup ${dark ? "is-dark" : ""}`}>
-      <div className="system-browser">
-        <div className="device-toolbar"><span /><span /><span /><strong>Panel real</strong></div>
-        <div className="system-shot-grid">
-          <RealShot
-            src={productShots.ibarberServices}
-            alt="Panel real de servicios iBarber"
-            className="system-shot-main"
-          />
-          <RealShot
-            src={productShots.itattooDashboard}
-            alt="Dashboard real de iTattoo"
-            className="system-shot-side"
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
+/* ── Reusable Components ── */
 
 function StudioPortfolioMockup() {
   return (
@@ -602,6 +545,28 @@ function StudioPortfolioMockup() {
           fill
           sizes="180px"
         />
+      </div>
+    </div>
+  );
+}
+
+function SystemLayerMockup({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className={`system-mockup ${dark ? "is-dark" : ""}`}>
+      <div className="system-browser">
+        <div className="device-toolbar"><span /><span /><span /><strong>Panel de gestión</strong></div>
+        <div className="system-shot-grid">
+          <RealShot
+            src={productShots.ibarberServices}
+            alt="Panel real de servicios iBarber"
+            className="system-shot-main"
+          />
+          <RealShot
+            src={productShots.itattooDashboard}
+            alt="Dashboard real de iTattoo"
+            className="system-shot-side"
+          />
+        </div>
       </div>
     </div>
   );
